@@ -1,0 +1,11 @@
+# Reference environment: Python 3.9.18; install the appropriate PyTorch CPU/CUDA build first.
+torch==2.3.0
+numpy==1.26.0
+scipy==1.11.4
+optuna==4.1.0
+einops==0.7.0
+pandas==2.1.4
+matplotlib==3.9.2
+scikit-learn==1.4.2
+tqdm==4.67.1
+seaborn==0.13.2

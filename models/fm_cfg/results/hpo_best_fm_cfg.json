@@ -1,0 +1,32 @@
+{
+  "model": "flow_matching",
+  "best_params": {
+    "hidden_dim": 512,
+    "n_blocks": 5,
+    "p_uncond": 0.06130682222763452,
+    "guidance_scale": 1.9639864884346896,
+    "sampling_steps": 100,
+    "dropout": 0.08140470953216877,
+    "lr": 0.00045443839603360173
+  },
+  "best_downstream_mse": 0.0012100235179683173,
+  "best_n_params": 12434965,
+  "stopped_epoch": 245,
+  "n_trials": 40,
+  "n_completed": 15,
+  "n_pruned": 25,
+  "hpo_config": {
+    "strategy": "TPE (seed=42)",
+    "objective": "downstream_mse (ViT pred vs target on val conditions)",
+    "eval_n_conditions": 50,
+    "eval_n_samples": 5,
+    "optimizer": "Adam",
+    "scheduler": "CosineAnnealingLR",
+    "early_stopping": "patience=50, min_epoch=100",
+    "max_epochs": 300,
+    "patience": 50,
+    "min_epochs": 100,
+    "batch_size": 256,
+    "grad_clip": 1.0
+  }
+}
