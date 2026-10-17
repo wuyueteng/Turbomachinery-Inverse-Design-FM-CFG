@@ -1,0 +1,17 @@
+{
+  "model": "fm",
+  "model_params": {
+    "hidden_dim": 512,
+    "n_blocks": 5,
+    "sampling_steps": 100,
+    "dropout": 0.081,
+    "lr": 0.000454
+  },
+  "epochs": 300,
+  "batch_size": 256,
+  "patience": 50,
+  "min_epochs": 100,
+  "seed": 42,
+  "split_seed": 42,
+  "dataset": "merged"
+}

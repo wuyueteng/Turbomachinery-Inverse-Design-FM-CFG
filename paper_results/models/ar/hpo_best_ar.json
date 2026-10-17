@@ -1,0 +1,30 @@
+{
+  "model": "ar",
+  "best_params": {
+    "dim": 256,
+    "n_heads": 2,
+    "n_layers": 6,
+    "dropout": 0.26169641414353817,
+    "lr": 0.00016492185742354544
+  },
+  "best_downstream_mse": 0.0039592954261336985,
+  "best_n_params": 4812546,
+  "stopped_epoch": 300,
+  "n_trials": 40,
+  "n_completed": 9,
+  "n_pruned": 31,
+  "hpo_config": {
+    "strategy": "TPE (seed=42)",
+    "objective": "downstream_mse (ViT pred vs target on val conditions)",
+    "eval_n_conditions": 50,
+    "eval_n_samples": 5,
+    "optimizer": "Adam",
+    "scheduler": "CosineAnnealingLR",
+    "early_stopping": "patience=50, min_epoch=100",
+    "max_epochs": 300,
+    "patience": 50,
+    "min_epochs": 100,
+    "batch_size": 256,
+    "grad_clip": 1.0
+  }
+}

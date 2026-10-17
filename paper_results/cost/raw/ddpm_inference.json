@@ -1,0 +1,224 @@
+{
+  "model": "ddpm",
+  "display_name": "cDDPM",
+  "phase": "inference",
+  "started_local": "2026-09-24T10:09:58.503418",
+  "environment": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.9.18",
+    "pytorch": "2.3.0+cu118",
+    "cuda": "11.8",
+    "cudnn": 8700,
+    "gpu_index": 0,
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "precision": "float32",
+    "cpu_threads": 4,
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "gpu_before": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 582 MiB, 0 %, 43\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1848 MiB, 2 %, 55",
+    "gpu_after": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 678 MiB, 0 %, 46\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1847 MiB, 3 %, 55"
+  },
+  "checkpoint_sha256": "75fee513fb1c9f465b35b2e26c9b8df81625566ac4aa6679acbe226178ebc99c",
+  "config_sha256": "6f148d610065ee3e7a6dab65848f355998c4972fbe41f81f77f1bc7d8698b132",
+  "trainable_parameters": 63093269,
+  "inference_active_parameters": 63093269,
+  "best_params": {
+    "timesteps": 450,
+    "hidden_dim": 1024,
+    "n_blocks": 7,
+    "dropout": 0.036611470453433645,
+    "lr": 9.7803370166594e-05
+  },
+  "memory_definition": "Peak PyTorch allocated tensor memory; full model resident; excludes context, driver and unused allocator cache.",
+  "protocol": {
+    "conditions": 1,
+    "designs_per_condition": 10,
+    "total_designs": 10,
+    "calls_per_repetition": 1,
+    "warmup_calls": 5,
+    "measured_repetitions": 10,
+    "sampling_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "temperature_ar_cinn": 0.8,
+    "condition_norm": [
+      0.4486540853976005,
+      0.4635961055690312,
+      0.2060145139687895
+    ],
+    "full_model_on_gpu": true,
+    "sampling_implementation_modified": false,
+    "inference_scope": "Each repetition times one original sample(condition, n_samples=10) call after warmup; includes noise, input transfer, clamping and CPU numpy return. Excludes loading, TeM, CFD and file I/O."
+  },
+  "measurements": [
+    {
+      "repetition": 1,
+      "sampling_seed": 42,
+      "warmup": false,
+      "seconds": 1.093083,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 2,
+      "sampling_seed": 43,
+      "warmup": false,
+      "seconds": 1.0906010000000013,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 3,
+      "sampling_seed": 44,
+      "warmup": false,
+      "seconds": 1.092454700000001,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 4,
+      "sampling_seed": 45,
+      "warmup": false,
+      "seconds": 1.0935226,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 5,
+      "sampling_seed": 46,
+      "warmup": false,
+      "seconds": 1.0903044000000008,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 6,
+      "sampling_seed": 47,
+      "warmup": false,
+      "seconds": 1.089841100000001,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 7,
+      "sampling_seed": 48,
+      "warmup": false,
+      "seconds": 1.0894247000000021,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 8,
+      "sampling_seed": 49,
+      "warmup": false,
+      "seconds": 1.0894268999999994,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 9,
+      "sampling_seed": 50,
+      "warmup": false,
+      "seconds": 1.085254899999999,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    },
+    {
+      "repetition": 10,
+      "sampling_seed": 51,
+      "warmup": false,
+      "seconds": 1.0923589000000007,
+      "peak_allocated_bytes": 261430272,
+      "peak_reserved_bytes": 276824064,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.0,
+      "output_max": 1.0
+    }
+  ],
+  "summary": {
+    "seconds_mean": 1.0906272200000005,
+    "seconds_sd": 0.0024318262240549545,
+    "measurement_count": 10,
+    "peak_allocated_mib": 249.3193359375,
+    "peak_reserved_mib": 264.0
+  },
+  "output_sha256": "cd9e81f959abcbfd4ffa93b7f0991da41efdc1c97531d83915dbe70a505012a9",
+  "checkpoint_unchanged": true,
+  "finished_local": "2026-09-24T10:10:15.492797"
+}

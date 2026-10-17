@@ -1,0 +1,33 @@
+{
+  "model": "cgan",
+  "best_params": {
+    "noise_dim": 32,
+    "hidden_dim": 1024,
+    "n_g_blocks": 6,
+    "n_d_blocks": 5,
+    "n_critic": 7,
+    "lambda_gp": 1.9626237954208001,
+    "lr_g": 5.428066365938947e-05,
+    "lr_d": 4.283336259730698e-05
+  },
+  "best_downstream_mse": 0.02928300328774369,
+  "best_n_params": 55719958,
+  "stopped_epoch": 300,
+  "n_trials": 40,
+  "n_completed": 10,
+  "n_pruned": 30,
+  "hpo_config": {
+    "strategy": "TPE (seed=42)",
+    "objective": "downstream_mse (ViT pred vs target on val conditions)",
+    "eval_n_conditions": 50,
+    "eval_n_samples": 5,
+    "optimizer": "Adam (internal opt_g + opt_d)",
+    "scheduler": "None (internal)",
+    "early_stopping": "disabled (adversarial)",
+    "max_epochs": 300,
+    "patience": "N/A",
+    "min_epochs": 100,
+    "batch_size": 256,
+    "grad_clip": 1.0
+  }
+}

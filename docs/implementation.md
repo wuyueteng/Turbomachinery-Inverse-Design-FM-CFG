@@ -1,25 +1,13 @@
-# Implementation notes
+# Implementation and release notes
 
-## Preserved computation
+The current release includes the six paper generators, standard FM for the CFG ablation, and the Transformer predictor. Core model equations, losses and sampling routines retain the supplied implementation. Source hashes and numeric provenance are recorded in the release manifests.
 
-Network architecture files, losses and sampling routines are copied without scientific changes. The shared data loader uses an 80/10/10 split with NumPy seed 42. Min/max scaling uses the full CFD reference arrays, including when the augmented dataset is selected. The performance-predictor training script uses split seed 15 and chooses its best checkpoint using its returned validation loader.
+The unified entrypoint separates command-line settings from network code, uses model-specific selected configurations, and writes independent runs. Predictor min/max scaling uses the complete CFD input arrays; generator scaling uses the same reference even for merged data. The original split algorithms and default seeds are documented in the training guide. Training seeds are explicit and separate from split seeds.
 
-The repeated-seed robustness script holds the data partition fixed at seed 15 and varies the training seed. This experiment measures variability across repeated training runs. MC dropout activates dropout during inference and uses the split definitions in its source script.
+Generator training uses Adam and a cosine schedule, gradient clipping at 1, and validation-loss model selection, with the GAN preserving its internally managed dual optimizers and update schedule. GAN validation computes the generator objective without optimizer updates; early stopping is disabled for it. Predictor loss follows the original average of batch MSE values and uses no gradient clipping or early stopping. Standard FM retains its original standalone ablation settings. The generic entrypoint saves full continuation state at each completed epoch.
 
-The common HPO objective is downstream surrogate-prediction MSE on sampled validation conditions. Training objectives and stopping behavior remain model-specific where required (including the GAN's internally managed optimizers). Search spaces, actual pruning behavior and defaults are defined by executable code in `scripts/optuna_hpo.py`. Supplied HPO JSON records retain the settings and trial counts of the corresponding local runs. To request another trial budget, pass `--n_trials` explicitly. Retraining retains separate training and validation loaders.
+The predictor architecture-search port retains the original search space and schedule. It scopes scores per trial, copies best states and separates architecture fields from batch size when reconstructing checkpoints. These bookkeeping fixes apply to new runs; historical results are not regenerated or relabelled. The six-model HPO search keeps the existing objective and trial accounting. Archive files are separate from newly generated HPO output.
 
-## Portability edits
+Legacy training scripts remain available. The README recommends the unified `scripts/train.py` API and run-based inference. Legacy inference no longer triggers training when a checkpoint is absent. The frozen evaluator can load either the historical state dictionary or a unified predictor `best.pt`.
 
-- The predictor trainer accepts relative default paths and optional CLI overrides, and saves in the evaluator's expected `checkpoints/` directory.
-- The dual-GPU launcher uses the active Python interpreter and schedules the six models accepted by the HPO command.
-- Robustness and MC-dropout source scripts use the packaged predictor and dataset implementations, with repository-relative input/checkpoint paths.
-- Predictor HPO is a runnable port of `Baysien_optimization.py`: the search space, split seed, optimizer, schedule and five-epoch validation interval are retained. Trial scores are scoped to each trial, saved best states are copied, and architecture parameters are separated from batch size when constructing the model. These bookkeeping corrections apply to new runs; no historical experiment is regenerated or relabelled. The last epoch is also evaluated to support custom epoch budgets.
-- Documentation, dependency pins, an input schema and a data-free smoke check are added.
-
-No raw CFD cases, research arrays, trained weights, manuscript text or review correspondence are included. This source package supports the machine-learning workflows; reproducing trained-model numerical results additionally requires the corresponding data, weights and experiment settings.
-
-## Validation scope
-
-`python scripts/smoke_check.py` checks finite losses, gradients and sample dimensions using small model configurations on CPU, plus a Transformer forward pass. It is a software check, not CFD or scientific validation. Long training runs are not repeated as part of packaging.
-
-The cost-summary script retains numerical table generation and omits the original optional editorial-reply drafting branch.
+Paper replotting uses archived numerical results without model inference. The original uncertainty-calibration and panel calculations are retained in the plotting helper. Other replot layouts use portable fonts; chart identifiers and numerical definitions are documented in the figure map.

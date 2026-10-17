@@ -1,0 +1,184 @@
+{
+  "model": "cgan",
+  "display_name": "cWGAN-GP",
+  "phase": "train",
+  "started_local": "2026-09-23T21:53:05.695276",
+  "environment": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.9.18",
+    "pytorch": "2.3.0+cu118",
+    "cuda": "11.8",
+    "cudnn": 8700,
+    "gpu_index": 0,
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "cpu_threads": 4,
+    "precision": "float32",
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "gpu_before": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 552 MiB, 0 %, 48\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1629 MiB, 3 %, 56",
+    "gpu_after": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 1644 MiB, 0 %, 50\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1630 MiB, 3 %, 56"
+  },
+  "checkpoint_sha256": "bb08e9f11b59db58da0012c3a8ec48f5a54dc836be3c85c58ef436c86764093e",
+  "config_sha256": "9e1c5de68ddf8faa785b4042a7a3d1b5643d61d82deeb02adbaa7687ebd81e91",
+  "trainable_parameters": 55719958,
+  "inference_active_parameters": 50435093,
+  "buffer_elements": 0,
+  "best_params": {
+    "noise_dim": 32,
+    "hidden_dim": 1024,
+    "n_g_blocks": 6,
+    "n_d_blocks": 5,
+    "n_critic": 7,
+    "lambda_gp": 1.9626237954208001,
+    "lr_g": 5.428066365938947e-05,
+    "lr_d": 4.283336259730698e-05
+  },
+  "memory_definition": "Peak PyTorch allocated tensor memory; full model resident. Context/driver and allocator cache excluded.",
+  "protocol": {
+    "train_split_size": 11072,
+    "val_split_size": 1384,
+    "test_split_size": 1384,
+    "batch_size": 256,
+    "batches_per_epoch": 43,
+    "processed_samples_per_epoch": 11008,
+    "drop_last": true,
+    "num_workers": 0,
+    "pin_memory": false,
+    "warmup_epochs": 2,
+    "measured_epochs": 10,
+    "epoch_scope": "CPU DataLoader iteration, host-to-device transfer, original loss/backward/optimizer, loss logging, scheduler; excludes validation, evaluation, checkpoint I/O, HPO.",
+    "initialization": "Saved checkpoint weights; fresh Adam state; updates discarded.",
+    "training_function": "scripts.optuna_hpo.train_one_epoch (unchanged)"
+  },
+  "trained_copy_saved": false,
+  "measurements": [
+    {
+      "epoch": 1,
+      "warmup": true,
+      "seconds": 0.9012099999999998,
+      "loss": -0.1650729647209478,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 2,
+      "warmup": true,
+      "seconds": 0.6076980999999995,
+      "loss": -0.1358145886469026,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 3,
+      "warmup": false,
+      "seconds": 0.6024453000000003,
+      "loss": -0.20794936308507309,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 6,
+      "discriminator_updates": 37
+    },
+    {
+      "epoch": 4,
+      "warmup": false,
+      "seconds": 0.6057896999999999,
+      "loss": -0.11881927665063115,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 5,
+      "warmup": false,
+      "seconds": 0.6046896000000004,
+      "loss": -0.13244767902895463,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 6,
+      "warmup": false,
+      "seconds": 0.6034448000000001,
+      "loss": -0.14026447337900483,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 6,
+      "discriminator_updates": 37
+    },
+    {
+      "epoch": 7,
+      "warmup": false,
+      "seconds": 0.6059842,
+      "loss": -0.09947018035102723,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 8,
+      "warmup": false,
+      "seconds": 0.604338199999999,
+      "loss": -0.14030899230910596,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 6,
+      "discriminator_updates": 37
+    },
+    {
+      "epoch": 9,
+      "warmup": false,
+      "seconds": 0.653250100000001,
+      "loss": -0.14342106350286063,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 10,
+      "warmup": false,
+      "seconds": 0.612154499999999,
+      "loss": -0.13981184276730516,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    },
+    {
+      "epoch": 11,
+      "warmup": false,
+      "seconds": 0.6050211000000001,
+      "loss": -0.16574791602270547,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 6,
+      "discriminator_updates": 37
+    },
+    {
+      "epoch": 12,
+      "warmup": false,
+      "seconds": 0.6052260999999994,
+      "loss": -0.07757178455764471,
+      "peak_allocated_bytes": 1110426112,
+      "peak_reserved_bytes": 1281359872,
+      "generator_updates": 5,
+      "discriminator_updates": 38
+    }
+  ],
+  "summary": {
+    "seconds_mean": 0.61023436,
+    "seconds_sd": 0.015334771971800608,
+    "peak_allocated_mib": 1058.98486328125,
+    "peak_reserved_mib": 1222.0
+  },
+  "checkpoint_unchanged": true,
+  "finished_local": "2026-09-23T21:53:13.944403"
+}

@@ -1,0 +1,157 @@
+{
+  "model": "ar",
+  "display_name": "cAR",
+  "phase": "train",
+  "started_local": "2026-09-23T21:52:30.975335",
+  "environment": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.9.18",
+    "pytorch": "2.3.0+cu118",
+    "cuda": "11.8",
+    "cudnn": 8700,
+    "gpu_index": 0,
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "cpu_threads": 4,
+    "precision": "float32",
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "gpu_before": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 358 MiB, 15 %, 45\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1650 MiB, 2 %, 55",
+    "gpu_after": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 1238 MiB, 58 %, 59\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1635 MiB, 3 %, 55"
+  },
+  "checkpoint_sha256": "61669e5b90fc00446df96cda1226366ec2205681345f95bdb94c5138446fe7a4",
+  "config_sha256": "77dfba3fc52ba90955f64208aebf8b832bbc67f3153f525d81a6a67f401d54fc",
+  "trainable_parameters": 4812546,
+  "inference_active_parameters": 4812546,
+  "buffer_elements": 484,
+  "best_params": {
+    "dim": 256,
+    "n_heads": 2,
+    "n_layers": 6,
+    "dropout": 0.26169641414353817,
+    "lr": 0.00016492185742354544
+  },
+  "memory_definition": "Peak PyTorch allocated tensor memory; full model resident. Context/driver and allocator cache excluded.",
+  "protocol": {
+    "train_split_size": 11072,
+    "val_split_size": 1384,
+    "test_split_size": 1384,
+    "batch_size": 256,
+    "batches_per_epoch": 43,
+    "processed_samples_per_epoch": 11008,
+    "drop_last": true,
+    "num_workers": 0,
+    "pin_memory": false,
+    "warmup_epochs": 2,
+    "measured_epochs": 10,
+    "epoch_scope": "CPU DataLoader iteration, host-to-device transfer, original loss/backward/optimizer, loss logging, scheduler; excludes validation, evaluation, checkpoint I/O, HPO.",
+    "initialization": "Saved checkpoint weights; fresh Adam state; updates discarded.",
+    "training_function": "scripts.optuna_hpo.train_one_epoch (unchanged)"
+  },
+  "trained_copy_saved": false,
+  "measurements": [
+    {
+      "epoch": 1,
+      "warmup": true,
+      "seconds": 0.9996114,
+      "loss": -0.933918742246406,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 2,
+      "warmup": true,
+      "seconds": 0.7139039,
+      "loss": -0.9678520518679952,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 3,
+      "warmup": false,
+      "seconds": 0.7179809000000006,
+      "loss": -0.9683893849683363,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 4,
+      "warmup": false,
+      "seconds": 0.7184027999999998,
+      "loss": -0.9322110303612643,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 5,
+      "warmup": false,
+      "seconds": 0.7167455999999994,
+      "loss": -0.9517188169235407,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 6,
+      "warmup": false,
+      "seconds": 0.7152010999999998,
+      "loss": -0.962198369724806,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 7,
+      "warmup": false,
+      "seconds": 0.7144341999999995,
+      "loss": -0.9693597832391428,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 8,
+      "warmup": false,
+      "seconds": 0.7159618999999999,
+      "loss": -0.9504357590231785,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 9,
+      "warmup": false,
+      "seconds": 0.7150780000000001,
+      "loss": -0.9703154037165087,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 10,
+      "warmup": false,
+      "seconds": 0.7604778000000003,
+      "loss": -0.9668451852576677,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 11,
+      "warmup": false,
+      "seconds": 0.7139855000000015,
+      "loss": -0.9706948316374491,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    },
+    {
+      "epoch": 12,
+      "warmup": false,
+      "seconds": 0.7155623999999996,
+      "loss": -0.9327069590258044,
+      "peak_allocated_bytes": 733863424,
+      "peak_reserved_bytes": 855638016
+    }
+  ],
+  "summary": {
+    "seconds_mean": 0.7203830200000001,
+    "seconds_sd": 0.014160236156678007,
+    "peak_allocated_mib": 699.86669921875,
+    "peak_reserved_mib": 816.0
+  },
+  "checkpoint_unchanged": true,
+  "finished_local": "2026-09-23T21:52:40.052215"
+}

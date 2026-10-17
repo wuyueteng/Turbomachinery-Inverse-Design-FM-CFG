@@ -23,16 +23,20 @@ class PerformanceEvaluator:
         ROOT_DIR, "models", "performance_predictor", "checkpoints", "best_model_in_testdataset.pth"
     )
 
-    def __init__(self, device="cuda"):
+    def __init__(self, device="cuda", checkpoint_path=None):
         self.device = device
-        self.model = ViT(
-            lenth=1, channels=21, num_classes=3,
-            dim=256, depth=14, heads=12, mlp_dim=256,
-            dropout=0.085, emb_dropout=0.072, dim_head=256,
-        ).to(device)
-
-        ckpt_path = self.PREDICTOR_CKPT
-        checkpoint = torch.load(ckpt_path, map_location=device)
+        ckpt_path = checkpoint_path or os.environ.get('TURBO_PREDICTOR_CHECKPOINT') or self.PREDICTOR_CKPT
+        if not os.path.isfile(ckpt_path):
+            raise FileNotFoundError(f'Missing predictor checkpoint: {ckpt_path}. Train with python scripts/train.py --model performance_predictor, then pass --predictor-run or set TURBO_PREDICTOR_CHECKPOINT to its best.pt.')
+        checkpoint = torch.load(ckpt_path, map_location=device, weights_only=True)
+        params = dict(lenth=1, channels=21, num_classes=3, dim=256, depth=14,
+                      heads=12, mlp_dim=256, dropout=0.085, emb_dropout=0.072, dim_head=256)
+        if 'model_state' in checkpoint:
+            if checkpoint['config']['model'] != 'performance_predictor':
+                raise ValueError('The evaluator requires a performance predictor checkpoint')
+            params = checkpoint['config']['model_params']
+            checkpoint = checkpoint['model_state']
+        self.model = ViT(**params).to(device)
         self.model.load_state_dict(checkpoint)
         self.model.eval()
         print(f"[Evaluator] ViT 加载完成: {ckpt_path}")

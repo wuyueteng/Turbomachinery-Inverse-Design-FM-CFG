@@ -1,0 +1,202 @@
+{
+  "fm_cfg": {
+    "display": "cFM-CFG",
+    "importances": {
+      "lr": {
+        "raw_name": "lr",
+        "display": "$\\eta$",
+        "value": 0.3361909368361908
+      },
+      "guidance_scale": {
+        "raw_name": "guidance_scale",
+        "display": "$w$",
+        "value": 0.1882674009367301
+      },
+      "n_blocks": {
+        "raw_name": "n_blocks",
+        "display": "$N_{blk}$",
+        "value": 0.1508258820948503
+      },
+      "dropout": {
+        "raw_name": "dropout",
+        "display": "$\\gamma$",
+        "value": 0.14483578317126694
+      },
+      "sampling_steps": {
+        "raw_name": "sampling_steps",
+        "display": "$N_{step}$",
+        "value": 0.10383283391777398
+      },
+      "hidden_dim": {
+        "raw_name": "hidden_dim",
+        "display": "$d_h$",
+        "value": 0.048980422966956115
+      },
+      "p_uncond": {
+        "raw_name": "p_uncond",
+        "display": "$p_{uc}$",
+        "value": 0.027066740076231784
+      }
+    }
+  },
+  "ddpm": {
+    "display": "cDDPM",
+    "importances": {
+      "n_blocks": {
+        "raw_name": "n_blocks",
+        "display": "$N_{blk}$",
+        "value": 0.5337159389348288
+      },
+      "hidden_dim": {
+        "raw_name": "hidden_dim",
+        "display": "$d_h$",
+        "value": 0.17811065810320773
+      },
+      "timesteps": {
+        "raw_name": "timesteps",
+        "display": "$T$",
+        "value": 0.10975681428129627
+      },
+      "dropout": {
+        "raw_name": "dropout",
+        "display": "$\\gamma$",
+        "value": 0.09086077966195469
+      },
+      "lr": {
+        "raw_name": "lr",
+        "display": "$\\eta$",
+        "value": 0.08755580901871253
+      }
+    }
+  },
+  "ar": {
+    "display": "cAR",
+    "importances": {
+      "n_layers": {
+        "raw_name": "n_layers",
+        "display": "$N_{layer}$",
+        "value": 0.782428759489523
+      },
+      "lr": {
+        "raw_name": "lr",
+        "display": "$\\eta$",
+        "value": 0.11520368657889694
+      },
+      "dropout": {
+        "raw_name": "dropout",
+        "display": "$\\gamma$",
+        "value": 0.08371468150803467
+      },
+      "n_heads": {
+        "raw_name": "n_heads",
+        "display": "$H$",
+        "value": 0.017731640435980526
+      },
+      "dim": {
+        "raw_name": "dim",
+        "display": "$d_{model}$",
+        "value": 0.0009212319875649723
+      }
+    }
+  },
+  "cinn": {
+    "display": "cINN",
+    "importances": {
+      "lr": {
+        "raw_name": "lr",
+        "display": "$\\eta$",
+        "value": 0.6431111075954431
+      },
+      "n_flows": {
+        "raw_name": "n_flows",
+        "display": "$N_{flow}$",
+        "value": 0.1998209036858404
+      },
+      "hidden_dim": {
+        "raw_name": "hidden_dim",
+        "display": "$d_h$",
+        "value": 0.15706798871871658
+      }
+    }
+  },
+  "cvae": {
+    "display": "cVAE",
+    "importances": {
+      "beta": {
+        "raw_name": "beta",
+        "display": "$\\beta$",
+        "value": 0.413669266660408
+      },
+      "latent_dim": {
+        "raw_name": "latent_dim",
+        "display": "$d_z$",
+        "value": 0.3180740224659475
+      },
+      "hidden_dim": {
+        "raw_name": "hidden_dim",
+        "display": "$d_h$",
+        "value": 0.08016360612738063
+      },
+      "dropout": {
+        "raw_name": "dropout",
+        "display": "$\\gamma$",
+        "value": 0.07412210259341644
+      },
+      "lr": {
+        "raw_name": "lr",
+        "display": "$\\eta$",
+        "value": 0.06955040570548467
+      },
+      "n_layers": {
+        "raw_name": "n_layers",
+        "display": "$N_{layer}$",
+        "value": 0.04442059644736274
+      }
+    }
+  },
+  "cgan": {
+    "display": "cWGAN-GP",
+    "importances": {
+      "noise_dim": {
+        "raw_name": "noise_dim",
+        "display": "$d_{noise}$",
+        "value": 0.5007486542563084
+      },
+      "lambda_gp": {
+        "raw_name": "lambda_gp",
+        "display": "$\\lambda_{GP}$",
+        "value": 0.2446713070392305
+      },
+      "lr_g": {
+        "raw_name": "lr_g",
+        "display": "$\\eta_G$",
+        "value": 0.07033533806576088
+      },
+      "n_g_blocks": {
+        "raw_name": "n_g_blocks",
+        "display": "$N_G$",
+        "value": 0.06384982749118041
+      },
+      "n_critic": {
+        "raw_name": "n_critic",
+        "display": "$n_{critic}$",
+        "value": 0.053721106163716864
+      },
+      "lr_d": {
+        "raw_name": "lr_d",
+        "display": "$\\eta_D$",
+        "value": 0.025678185384391317
+      },
+      "n_d_blocks": {
+        "raw_name": "n_d_blocks",
+        "display": "$N_D$",
+        "value": 0.02087382276443375
+      },
+      "hidden_dim": {
+        "raw_name": "hidden_dim",
+        "display": "$d_h$",
+        "value": 0.02012175883497791
+      }
+    }
+  }
+}

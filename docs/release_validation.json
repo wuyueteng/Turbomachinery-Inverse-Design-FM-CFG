@@ -1,0 +1,189 @@
+{
+  "release": "v1.0.0",
+  "validation_date": "2026-10-17",
+  "environment": {
+    "python": "3.9.18",
+    "torch": "2.3.0+cu118",
+    "test_device": "cpu"
+  },
+  "independent_staged_checkout": true,
+  "checks": {
+    "data_shapes_finiteness_pairing_source_mapping_csv_roundtrip": "passed",
+    "source_artifact_checksums": {
+      "status": "passed",
+      "count": 118
+    },
+    "network_smoke_checks": {
+      "status": "passed",
+      "model_count": 8
+    },
+    "short_training_checkpoint_sampling_exact_cpu_resume": {
+      "status": "passed",
+      "model_count": 8
+    },
+    "cli_predictor_generator_evaluation_workflow": "passed",
+    "missing_input_and_invalid_argument_messages": "passed",
+    "archived_figure_reconstruction": {
+      "status": "passed",
+      "figure_groups": 10,
+      "png_pdf_files": 20
+    },
+    "retained_generator_executable_ast_matches_source": {
+      "status": "passed",
+      "model_count": 7
+    },
+    "paper_metrics": {
+      "passed": true,
+      "benchmark": {
+        "fm_cfg": {
+          "r2_flow": 0.9802659021994579,
+          "nrmse_flow": 0.03167844488616534,
+          "mre_flow": 0.5383795090655079,
+          "r2_eff": 0.9560655324710202,
+          "nrmse_eff": 0.052673095315601444,
+          "mre_eff": 0.35836142788126063,
+          "r2_pr": 0.9928539237426045,
+          "nrmse_pr": 0.019974965794135185,
+          "mre_pr": 0.3039846246109871,
+          "mean_nrmse": 0.03477550199863399,
+          "mre": 0.4002418538525852,
+          "diversity_mean": 1.5508187138557434,
+          "novelty_mean": 1.0058526761273867
+        },
+        "ar": {
+          "r2_flow": 0.9499517316425401,
+          "nrmse_flow": 0.050448672578359166,
+          "mre_flow": 0.8584552960174097,
+          "r2_eff": 0.8672280415503912,
+          "nrmse_eff": 0.09156707413917455,
+          "mre_eff": 0.6317460225952105,
+          "r2_pr": 0.9867304316975655,
+          "nrmse_pr": 0.027219529765966456,
+          "mre_pr": 0.4084439117141162,
+          "mean_nrmse": 0.056411758827833385,
+          "mre": 0.6328817434422455,
+          "diversity_mean": 1.2656984020471573,
+          "novelty_mean": 0.9318194156987418
+        },
+        "cvae": {
+          "r2_flow": 0.9117644049364897,
+          "nrmse_flow": 0.06698493264764137,
+          "mre_flow": 1.0896911069466364,
+          "r2_eff": 0.62271573728403,
+          "nrmse_eff": 0.15435492880668641,
+          "mre_eff": 1.0406469653746355,
+          "r2_pr": 0.9824040564341741,
+          "nrmse_pr": 0.03134429465709519,
+          "mre_pr": 0.46708277467241527,
+          "mean_nrmse": 0.084228052037141,
+          "mre": 0.8658069489978956,
+          "diversity_mean": 1.2526806203126908,
+          "novelty_mean": 0.9090947292889334
+        },
+        "cgan": {
+          "r2_flow": 0.7423210510026415,
+          "nrmse_flow": 0.11447079151595613,
+          "mre_flow": 2.0140079356040834,
+          "r2_eff": 0.4210962261480159,
+          "nrmse_eff": 0.1912006423571852,
+          "mre_eff": 1.3264526859236092,
+          "r2_pr": 0.9204922228430192,
+          "nrmse_pr": 0.06662803834675092,
+          "mre_pr": 0.9951578869779985,
+          "mean_nrmse": 0.12409982407329741,
+          "mre": 1.445206169501897,
+          "diversity_mean": 1.5464845032691954,
+          "novelty_mean": 1.0028150389222594
+        },
+        "ddpm": {
+          "r2_flow": 0.962981486690524,
+          "nrmse_flow": 0.043387507540449864,
+          "mre_flow": 0.7221215316261498,
+          "r2_eff": 0.9119575115561875,
+          "nrmse_eff": 0.0745645345340734,
+          "mre_eff": 0.5075421038737901,
+          "r2_pr": 0.9898079026911183,
+          "nrmse_pr": 0.02385525162354202,
+          "mre_pr": 0.35716728410089493,
+          "mean_nrmse": 0.04726909789935509,
+          "mre": 0.5289436398669448,
+          "diversity_mean": 1.5280139388322829,
+          "novelty_mean": 0.9901599389952013
+        },
+        "cinn": {
+          "r2_flow": 0.9253684967701074,
+          "nrmse_flow": 0.06160504940606566,
+          "mre_flow": 1.0269418336117044,
+          "r2_eff": 0.8746585132721042,
+          "nrmse_eff": 0.08896794873775926,
+          "mre_eff": 0.5934606064315421,
+          "r2_pr": 0.9802924500452342,
+          "nrmse_pr": 0.0331717618778188,
+          "mre_pr": 0.45326360191851905,
+          "mean_nrmse": 0.0612482533405479,
+          "mre": 0.6912220139872552,
+          "diversity_mean": 1.312341917014122,
+          "novelty_mean": 0.9380426811218459
+        }
+      },
+      "surrogate": [
+        {
+          "r2": 0.963,
+          "coverage2": 97.4,
+          "robustness_r2": 0.9708,
+          "robustness_nrmse": 0.0339
+        },
+        {
+          "r2": 0.989,
+          "coverage2": 94.8,
+          "robustness_r2": 0.9891,
+          "robustness_nrmse": 0.0205
+        },
+        {
+          "r2": 0.954,
+          "coverage2": 94.8,
+          "robustness_r2": 0.947,
+          "robustness_nrmse": 0.056
+        }
+      ],
+      "distribution": {
+        "fm_cfg": {
+          "wd_mean": 0.024929648922595818,
+          "ks_mean": 0.05489843104872007,
+          "js_mean": 0.028279089834276044
+        },
+        "ar": {
+          "wd_mean": 0.05331729609705227,
+          "ks_mean": 0.10554638040187173,
+          "js_mean": 0.04776643903833498
+        },
+        "cvae": {
+          "wd_mean": 0.04822946520456945,
+          "ks_mean": 0.09615689512799339,
+          "js_mean": 0.0538113741086469
+        },
+        "cgan": {
+          "wd_mean": 0.031034527312212727,
+          "ks_mean": 0.06395568400770713,
+          "js_mean": 0.02927057153282416
+        },
+        "ddpm": {
+          "wd_mean": 0.021157671000798253,
+          "ks_mean": 0.05073685659234792,
+          "js_mean": 0.025302337524531884
+        },
+        "cinn": {
+          "wd_mean": 0.05211114807171434,
+          "ks_mean": 0.10897412606661161,
+          "js_mean": 0.04709679611675907
+        }
+      }
+    }
+  },
+  "data_rows": {
+    "CFD": 3840,
+    "additional_TeM": 10000,
+    "merged": 13840
+  },
+  "scope": "Short software tests and archived numerical verification; full research training and CFD were not rerun."
+}

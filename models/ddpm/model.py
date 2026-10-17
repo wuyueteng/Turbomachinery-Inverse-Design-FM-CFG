@@ -2,12 +2,12 @@
 Conditional DDPM (without Classifier-Free Guidance)
 =====================================================
 Standard conditional denoising diffusion probabilistic model.
-Differences from DDPM-CFG:
+Conditional training and sampling:
   - Training: condition is always provided (no random masking, p_uncond=0)
   - Sampling: single forward pass per step (no CFG mixing, no guidance_scale)
   - Same architecture: SinusoidalTimeEmbedding + FiLM ResBlocks + cosine schedule
 
-This serves as an ablation baseline to isolate the effect of CFG.
+This is the conditional diffusion baseline in the six-model comparison.
 """
 
 import math

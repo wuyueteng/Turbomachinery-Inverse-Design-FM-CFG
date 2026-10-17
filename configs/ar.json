@@ -1,0 +1,17 @@
+{
+  "model": "ar",
+  "model_params": {
+    "dim": 256,
+    "n_heads": 2,
+    "n_layers": 6,
+    "dropout": 0.26169641414353817,
+    "lr": 0.00016492185742354544
+  },
+  "epochs": 300,
+  "batch_size": 256,
+  "patience": 50,
+  "min_epochs": 100,
+  "seed": 42,
+  "split_seed": 42,
+  "dataset": "merged"
+}

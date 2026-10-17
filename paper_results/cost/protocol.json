@@ -1,0 +1,42 @@
+{
+  "started_local": "2026-09-24T10:09:25.639912",
+  "gpu_index": 0,
+  "gpu_before": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 0 MiB, 0 %, 41\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1864 MiB, 2 %, 55",
+  "models": [
+    "fm_cfg",
+    "ar",
+    "cvae",
+    "cgan",
+    "ddpm",
+    "cinn"
+  ],
+  "training_source": "experiments/computational_cost/results/rtx4090_fp32",
+  "condition_selection": "First target in the previously saved fixed test-condition list; selected before timing any model.",
+  "source_condition_row": 0,
+  "test_split_index": 858,
+  "condition_norm": [
+    0.4486540853976005,
+    0.4635961055690312,
+    0.2060145139687895
+  ],
+  "conditions": 1,
+  "designs_per_call": 10,
+  "warmup_calls": 5,
+  "measured_calls_per_model": 10,
+  "sampling_seeds": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51
+  ],
+  "training_remeasured": false,
+  "precision": "FP32, TF32 disabled, no AMP, no torch.compile",
+  "cpu_threads": 4,
+  "scope": "Mean and sample SD of individually timed warmed calls at a fixed condition; each call generates 10 designs. Not total runtime over all repetitions or an average over target conditions."
+}

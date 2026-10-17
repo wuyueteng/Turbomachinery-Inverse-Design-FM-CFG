@@ -1,0 +1,23 @@
+{
+  "model": "performance_predictor",
+  "model_params": {
+    "lenth": 1,
+    "channels": 21,
+    "num_classes": 3,
+    "dim": 256,
+    "depth": 14,
+    "heads": 12,
+    "mlp_dim": 256,
+    "dropout": 0.085,
+    "emb_dropout": 0.072,
+    "dim_head": 256
+  },
+  "epochs": 300,
+  "batch_size": 32,
+  "lr": 0.0001,
+  "seed": 15,
+  "split_seed": 15,
+  "dataset": "reference",
+  "patience": 0,
+  "min_epochs": 0
+}

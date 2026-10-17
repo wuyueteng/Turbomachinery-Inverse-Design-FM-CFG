@@ -1,0 +1,20 @@
+{
+  "model": "cgan",
+  "model_params": {
+    "noise_dim": 32,
+    "hidden_dim": 1024,
+    "n_g_blocks": 6,
+    "n_d_blocks": 5,
+    "n_critic": 7,
+    "lambda_gp": 1.9626237954208001,
+    "lr_g": 5.428066365938947e-05,
+    "lr_d": 4.283336259730698e-05
+  },
+  "epochs": 300,
+  "batch_size": 256,
+  "patience": 50,
+  "min_epochs": 100,
+  "seed": 42,
+  "split_seed": 42,
+  "dataset": "merged"
+}

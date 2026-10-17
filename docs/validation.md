@@ -1,14 +1,11 @@
-# Release validation
+# Validation scope
 
-Validated on 17 October 2026 using Python 3.9.18 and PyTorch 2.3.0+cu118.
+Release checks include Python syntax/imports, dataset shapes and finiteness, exact paired-data provenance, CSV roundtrip and source checksums. The benchmark verification script recomputes six-model regression metrics, k=5 diversity/novelty and distribution distances, compares Table 1 rounding, and verifies archived Figure 2 summaries.
 
-- All packaged Python files parse successfully.
-- The nine generative `model.py` files match the original project source after line-ending normalization.
-- Eight standalone generative models pass small CPU loss, gradient and sampling checks.
-- The Transformer predictor passes forward/backward checks; the full architecture also loads the existing research checkpoint strictly and produces finite predictions.
-- PA-FM-CFG passes loss, gradient and sampling checks with the existing frozen research surrogate loaded locally.
-- Predictor HPO completes two short trials using temporary random input data and a small test architecture; the selected configuration and saved checkpoint reload consistently. Temporary test data are not part of the repository.
-- The generative HPO, inference, predictor training, predictor HPO and parallel-launcher command-line help entrypoints execute successfully.
-- The upload file set is checked for embedded credentials, machine-specific absolute paths and unintended binary/data files.
+The training suite exercises all eight included network types with small configurations and short budgets. It compares uninterrupted training with epoch-boundary continuation, including both GAN optimizers and its update counter. CLI integration covers predictor training, cFM-CFG training, candidate generation, surrogate evaluation, and clear missing-input errors. The plotting command runs without pretrained weights.
 
-These checks validate packaging and software execution. They do not repeat full research training, reproduce reported accuracy, or perform CFD validation. Data and weights used for local compatibility checks are not uploaded.
+These checks validate the software package and numerical archives. Full research training, all repeated-seed experiments and CFD solutions are not rerun as part of release validation. New stochastic training outputs are not claimed to reproduce the archived realization exactly.
+
+## v1.0.0 check results (17 October 2026)
+
+All listed checks passed in an independent checkout of the staged release. The two workflow tests exercise all eight network types, including exact CPU continuation and the predictor–generator–evaluation CLI sequence. The archive check verified 118 source artifacts; the plotting entrypoint produced 10 figure groups (20 PNG/PDF files). See [the machine-readable validation report](release_validation.json) and [figure previews](../paper_results/previews/README.md).

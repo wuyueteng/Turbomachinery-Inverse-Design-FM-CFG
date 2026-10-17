@@ -1,0 +1,56 @@
+{
+  "fm_cfg": {
+    "mean_nrmse": 0.0348,
+    "mre": 0.4,
+    "r2_flow": 0.9803,
+    "r2_pr": 0.9929,
+    "r2_eff": 0.9561,
+    "diversity_mean": 1.5508,
+    "novelty_mean": 1.0059
+  },
+  "ar": {
+    "mean_nrmse": 0.0564,
+    "mre": 0.63,
+    "r2_flow": 0.95,
+    "r2_pr": 0.9867,
+    "r2_eff": 0.8672,
+    "diversity_mean": 1.2657,
+    "novelty_mean": 0.9318
+  },
+  "cvae": {
+    "mean_nrmse": 0.0842,
+    "mre": 0.87,
+    "r2_flow": 0.9118,
+    "r2_pr": 0.9824,
+    "r2_eff": 0.6227,
+    "diversity_mean": 1.2527,
+    "novelty_mean": 0.9091
+  },
+  "cgan": {
+    "mean_nrmse": 0.1241,
+    "mre": 1.45,
+    "r2_flow": 0.7423,
+    "r2_pr": 0.9205,
+    "r2_eff": 0.4211,
+    "diversity_mean": 1.5465,
+    "novelty_mean": 1.0028
+  },
+  "ddpm": {
+    "mean_nrmse": 0.0473,
+    "mre": 0.53,
+    "r2_flow": 0.963,
+    "r2_pr": 0.9898,
+    "r2_eff": 0.912,
+    "diversity_mean": 1.528,
+    "novelty_mean": 0.9902
+  },
+  "cinn": {
+    "mean_nrmse": 0.0612,
+    "mre": 0.69,
+    "r2_flow": 0.9254,
+    "r2_pr": 0.9803,
+    "r2_eff": 0.8747,
+    "diversity_mean": 1.3123,
+    "novelty_mean": 0.938
+  }
+}

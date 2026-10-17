@@ -1,0 +1,225 @@
+{
+  "model": "cvae",
+  "display_name": "cVAE",
+  "phase": "inference",
+  "started_local": "2026-09-24T10:09:46.902969",
+  "environment": {
+    "platform": "Windows-10-10.0.19045-SP0",
+    "python": "3.9.18",
+    "pytorch": "2.3.0+cu118",
+    "cuda": "11.8",
+    "cudnn": 8700,
+    "gpu_index": 0,
+    "gpu_name": "NVIDIA GeForce RTX 4090",
+    "precision": "float32",
+    "cpu_threads": 4,
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "gpu_before": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 352 MiB, 11 %, 42\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1848 MiB, 3 %, 55",
+    "gpu_after": "index, name, uuid, driver_version, memory.total [MiB], memory.used [MiB], utilization.gpu [%], temperature.gpu\n0, NVIDIA GeForce RTX 4090, GPU-3623d17d-8d99-fa19-91bf-a0887d733e20, 616.56, 24564 MiB, 448 MiB, 11 %, 42\n1, NVIDIA GeForce RTX 4090, GPU-0ec6a9fa-8606-fd6b-dc1a-2c19ff49d8f1, 616.56, 24564 MiB, 1848 MiB, 2 %, 55"
+  },
+  "checkpoint_sha256": "7f070d7beea49b732509f62ae8cae41a5be9a96e4bf8ec77f210806da2622983",
+  "config_sha256": "47f8c987ede143d456317d92be3dacfe4b5d4120ea057add92cf4ea4ee617a65",
+  "trainable_parameters": 3200613,
+  "inference_active_parameters": 1595413,
+  "best_params": {
+    "hidden_dim": 256,
+    "latent_dim": 40,
+    "n_layers": 3,
+    "beta": 0.09738968513977794,
+    "dropout": 0.06874641401323763,
+    "lr": 0.0009428681063314566
+  },
+  "memory_definition": "Peak PyTorch allocated tensor memory; full model resident; excludes context, driver and unused allocator cache.",
+  "protocol": {
+    "conditions": 1,
+    "designs_per_condition": 10,
+    "total_designs": 10,
+    "calls_per_repetition": 1,
+    "warmup_calls": 5,
+    "measured_repetitions": 10,
+    "sampling_seeds": [
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51
+    ],
+    "temperature_ar_cinn": 0.8,
+    "condition_norm": [
+      0.4486540853976005,
+      0.4635961055690312,
+      0.2060145139687895
+    ],
+    "full_model_on_gpu": true,
+    "sampling_implementation_modified": false,
+    "inference_scope": "Each repetition times one original sample(condition, n_samples=10) call after warmup; includes noise, input transfer, clamping and CPU numpy return. Excludes loading, TeM, CFD and file I/O."
+  },
+  "measurements": [
+    {
+      "repetition": 1,
+      "sampling_seed": 42,
+      "warmup": false,
+      "seconds": 0.0009893999999999181,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.06985798478126526,
+      "output_max": 0.9750536680221558
+    },
+    {
+      "repetition": 2,
+      "sampling_seed": 43,
+      "warmup": false,
+      "seconds": 0.0009591000000002126,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.039365701377391815,
+      "output_max": 0.973909318447113
+    },
+    {
+      "repetition": 3,
+      "sampling_seed": 44,
+      "warmup": false,
+      "seconds": 0.0009677000000003488,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.09014303982257843,
+      "output_max": 0.9561031460762024
+    },
+    {
+      "repetition": 4,
+      "sampling_seed": 45,
+      "warmup": false,
+      "seconds": 0.0009470000000000312,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.06175296753644943,
+      "output_max": 0.9760718941688538
+    },
+    {
+      "repetition": 5,
+      "sampling_seed": 46,
+      "warmup": false,
+      "seconds": 0.0009751000000006727,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.020452093333005905,
+      "output_max": 0.974163293838501
+    },
+    {
+      "repetition": 6,
+      "sampling_seed": 47,
+      "warmup": false,
+      "seconds": 0.0009550000000002612,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.05485957860946655,
+      "output_max": 0.9231815338134766
+    },
+    {
+      "repetition": 7,
+      "sampling_seed": 48,
+      "warmup": false,
+      "seconds": 0.0009594999999995579,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.04450012370944023,
+      "output_max": 0.9248179197311401
+    },
+    {
+      "repetition": 8,
+      "sampling_seed": 49,
+      "warmup": false,
+      "seconds": 0.0009481999999998436,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.07181772589683533,
+      "output_max": 0.9486440420150757
+    },
+    {
+      "repetition": 9,
+      "sampling_seed": 50,
+      "warmup": false,
+      "seconds": 0.0009568000000008681,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.031279802322387695,
+      "output_max": 0.9493147134780884
+    },
+    {
+      "repetition": 10,
+      "sampling_seed": 51,
+      "warmup": false,
+      "seconds": 0.0009508000000000294,
+      "peak_allocated_bytes": 21418496,
+      "peak_reserved_bytes": 35651584,
+      "output_shape": [
+        10,
+        21
+      ],
+      "all_finite": true,
+      "output_min": 0.057874564081430435,
+      "output_max": 0.9289323091506958
+    }
+  ],
+  "summary": {
+    "seconds_mean": 0.0009608600000001744,
+    "seconds_sd": 1.3222220354859318e-05,
+    "measurement_count": 10,
+    "peak_allocated_mib": 20.42626953125,
+    "peak_reserved_mib": 34.0
+  },
+  "output_sha256": "f8f491b1a81b34750676f196dbbd56db520517213dacf08a1e467e8aaa5db3d1",
+  "checkpoint_unchanged": true,
+  "finished_local": "2026-09-24T10:09:47.214260"
+}

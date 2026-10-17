@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "Please cite this software and the associated manuscript when using this work."
+title: "Turbomachinery Inverse Design with Flow Matching and Classifier-Free Guidance"
+type: software
+version: 1.0.0
+date-released: 2026-10-17
+url: "https://github.com/wuyueteng/Turbomachinery-Inverse-Design-FM-CFG"
+authors:
+  - family-names: Wu
+    given-names: Yueteng
+  - family-names: Zhu
+    given-names: Zihao
+  - family-names: Du
+    given-names: Juan
+  - family-names: Zhang
+    given-names: Xinglong
+  - family-names: Duan
+    given-names: Penghao
+  - family-names: Wang
+    given-names: Yangyang
+license: MIT
+abstract: "Code and data accompanying the manuscript: A generative framework for turbomachinery aerodynamic inverse design based on flow matching with classifier-free guidance. Data and numerical results are separately licensed under CC BY 4.0."

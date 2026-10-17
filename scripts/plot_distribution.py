@@ -8,179 +8,90 @@
 Usage:
     python scripts/plot_distribution.py                           # 全部模型
     python scripts/plot_distribution.py --model ar                # 单模型
-    python scripts/plot_distribution.py --model ar fm_cfg  # 多个模型
-"""
-
-# ----------------------------------------------------------------------
-# Quick model selection
-# Comment out any model you do not want to plot.
-# If you pass --model from CLI, it will override this list.
-# ----------------------------------------------------------------------
-PLOT_MODELS = [
-    # "pa_fm_cfg",
-    "fm_cfg",
-    # "fm",
-    "ddpm",
-    "cinn",
-    "ar",
-    "cvae",
-    "cgan",
-    # "ddpm_cfg",
-]
-
+    python scripts/plot_distribution.py --model ar fm_cfg  # 多个模型"""
+PLOT_MODELS = ['fm_cfg', 'ddpm', 'cinn', 'ar', 'cvae', 'cgan']
 import os, sys, argparse, json, csv
 import numpy as np
 from scipy.stats import gaussian_kde, ks_2samp, wasserstein_distance
 from scipy.spatial.distance import jensenshannon
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.dirname(SCRIPT_DIR)
 sys.path.insert(0, ROOT_DIR)
-
 import matplotlib
-matplotlib.use("Agg")
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
 from shared.data_utils import get_dataloaders
-
-# ═══════════════════════════════════════════════════════════════════
-#  全局绘图配置 — 修改此处即可统一调整所有图表样式
-# ═══════════════════════════════════════════════════════════════════
-
-# ── 字体 ──
-FONT_FAMILY       = "serif"
-FONT_SERIF        = ["Times New Roman"]
-MATHTEXT_FONTSET  = "stix"
-
-# ── 字号 ──
-FONT_SIZE_BASE    = 16
-FONT_SIZE_TITLE   = 20              # 组图列标题 (参数名)
-FONT_SIZE_LABEL   = 20              # 坐标轴标签
-FONT_SIZE_TICK    = 18              # 刻度数字
-FONT_SIZE_LEGEND  = 21              # 图例
-FONT_SIZE_SECTION = 20           # 组图行标签 (Hub/Mid/Tip)
-FONT_SIZE_SINGLE_TITLE = 15        # 单图标题
-FONT_SIZE_SINGLE_LABEL = 14        # 单图坐标轴
-FONT_SIZE_SINGLE_TICK  = 12        # 单图刻度
-FONT_SIZE_SINGLE_LEGEND = 10       # 单图图例
-
-# ── KDE 曲线 ──
-KDE_BW_METHOD     = 0.08           # KDE 带宽 (Scott/Silverman 的倍数)
-KDE_GRID_POINTS   = 300            # KDE 网格密度
-REAL_COLOR        = "#1A1A1A"      # 真实数据颜色 (注意避开模型颜色, #2C3E50 已被 DDPM 占用)
-REAL_LW           = 2.0            # 真实数据线宽
-REAL_FILL_ALPHA   = 0.15           # 真实数据填充透明度
-GEN_LW            = 1.3            # 生成数据线宽
-GEN_ALPHA         = 0.85           # 生成数据曲线透明度
-
-# ── 刻度 & 边框 ──
-TICK_DIRECTION    = "in"
-TICK_LENGTH       = 4
-TICK_WIDTH        = 0.8
-SPINE_LW          = 0.8
-
-# ── 输出 ──
-SAVE_DPI          = 600
-SAVE_FORMAT       = "png"           # "png" / "pdf" / "svg"
-
-# ── 组图尺寸 ──
-FIG_SIZE_GRID     = (22, 9)         # 3x7 组图 (宽, 高)
-# ── 单图尺寸 ──
-FIG_SIZE_SINGLE   = (5.5, 4.0)
-
-# ── 应用 rcParams ──
-plt.rcParams.update({
-    "font.family":      FONT_FAMILY,
-    "font.serif":       FONT_SERIF,
-    "font.size":        FONT_SIZE_BASE,
-    "axes.labelsize":   FONT_SIZE_LABEL,
-    "axes.titlesize":   FONT_SIZE_TITLE,
-    "axes.linewidth":   SPINE_LW,
-    "xtick.labelsize":  FONT_SIZE_TICK,
-    "ytick.labelsize":  FONT_SIZE_TICK,
-    "xtick.direction":  TICK_DIRECTION,
-    "ytick.direction":  TICK_DIRECTION,
-    "xtick.major.size": TICK_LENGTH,
-    "ytick.major.size": TICK_LENGTH,
-    "xtick.major.width": TICK_WIDTH,
-    "ytick.major.width": TICK_WIDTH,
-    "mathtext.fontset": MATHTEXT_FONTSET,
-    "savefig.dpi":      SAVE_DPI,
-    "savefig.bbox":     "tight",
-})
-
-# ═══════════════════════════════════════════════════════════════════
-#  模型 & 参数配置
-# ═══════════════════════════════════════════════════════════════════
-
-MODELS_DIR = os.path.join(ROOT_DIR, "models")
-FIG_DIR = os.path.join(ROOT_DIR, "figures")
-
-ALL_MODELS = ["pa_fm_cfg", "fm_cfg", "fm", "ddpm", "cinn", "ar", "cvae", "cgan", "ddpm_cfg"]
-DISPLAY = {
-    "pa_fm_cfg": "PA-cFM-CFG", "fm_cfg": "cFM-CFG", "fm": "FM",
-    "ddpm": "cDDPM", "ddpm_cfg": "DDPM-CFG", "ar": "cAR", "cinn": "cINN",
-    "cvae": "cVAE", "cgan": "cWGAN-GP",
-}
-# ── 图例显示顺序 (Real 始终在最前, 其余模型按此顺序) ──
-LEGEND_ORDER = ["fm_cfg", "ar", "cvae", "cgan", "ddpm", "cinn"]
-COLORS = {
-    "pa_fm_cfg": "#C0392B", "fm_cfg": "#8E44AD", "fm": "#E67E22",
-    "ddpm": "#2C3E50", "ddpm_cfg": "#27AE60", "ar": "#2980B9", "cinn": "#7F8C8D",
-    "cvae": "#16A085", "cgan": "#D35400",
-}
-
-# 7 个参数名 (LaTeX), 3 个截面
-PARAM_LABELS = [
-    r"$\beta_{1k}$", r"$\beta_{2k}$", r"$C$",
-    r"$T$", r"$TP$", r"$RS$", r"$RB$",
-]
-PARAM_SAFE = ["beta1k", "beta2k", "C", "TmaxCH", "TmaxP", "SWA", "BOWA"]
-SECTIONS = ["Hub", "Mid", "Tip"]
-
-
-# ═══════════════════════════════════════════════════════════════════
-#  数据加载
-# ═══════════════════════════════════════════════════════════════════
+FONT_FAMILY = 'serif'
+FONT_SERIF = ['Times New Roman']
+MATHTEXT_FONTSET = 'stix'
+FONT_SIZE_BASE = 16
+FONT_SIZE_TITLE = 20
+FONT_SIZE_LABEL = 20
+FONT_SIZE_TICK = 18
+FONT_SIZE_LEGEND = 21
+FONT_SIZE_SECTION = 20
+FONT_SIZE_SINGLE_TITLE = 15
+FONT_SIZE_SINGLE_LABEL = 14
+FONT_SIZE_SINGLE_TICK = 12
+FONT_SIZE_SINGLE_LEGEND = 10
+KDE_BW_METHOD = 0.08
+KDE_GRID_POINTS = 300
+REAL_COLOR = '#1A1A1A'
+REAL_LW = 2.0
+REAL_FILL_ALPHA = 0.15
+GEN_LW = 1.3
+GEN_ALPHA = 0.85
+TICK_DIRECTION = 'in'
+TICK_LENGTH = 4
+TICK_WIDTH = 0.8
+SPINE_LW = 0.8
+SAVE_DPI = 600
+SAVE_FORMAT = 'png'
+FIG_SIZE_GRID = (22, 9)
+FIG_SIZE_SINGLE = (5.5, 4.0)
+plt.rcParams.update({'font.family': FONT_FAMILY, 'font.serif': FONT_SERIF, 'font.size': FONT_SIZE_BASE, 'axes.labelsize': FONT_SIZE_LABEL, 'axes.titlesize': FONT_SIZE_TITLE, 'axes.linewidth': SPINE_LW, 'xtick.labelsize': FONT_SIZE_TICK, 'ytick.labelsize': FONT_SIZE_TICK, 'xtick.direction': TICK_DIRECTION, 'ytick.direction': TICK_DIRECTION, 'xtick.major.size': TICK_LENGTH, 'ytick.major.size': TICK_LENGTH, 'xtick.major.width': TICK_WIDTH, 'ytick.major.width': TICK_WIDTH, 'mathtext.fontset': MATHTEXT_FONTSET, 'savefig.dpi': SAVE_DPI, 'savefig.bbox': 'tight'})
+MODELS_DIR = os.path.join(ROOT_DIR, 'models')
+FIG_DIR = os.path.join(ROOT_DIR, 'figures')
+ALL_MODELS = ['fm_cfg', 'fm', 'ddpm', 'cinn', 'ar', 'cvae', 'cgan']
+DISPLAY = {'fm_cfg': 'cFM-CFG', 'fm': 'FM', 'ddpm': 'cDDPM', 'ar': 'cAR', 'cinn': 'cINN', 'cvae': 'cVAE', 'cgan': 'cWGAN-GP'}
+LEGEND_ORDER = ['fm_cfg', 'ar', 'cvae', 'cgan', 'ddpm', 'cinn']
+COLORS = {'fm_cfg': '#8E44AD', 'fm': '#E67E22', 'ddpm': '#2C3E50', 'ar': '#2980B9', 'cinn': '#7F8C8D', 'cvae': '#16A085', 'cgan': '#D35400'}
+PARAM_LABELS = ['$\\beta_{1k}$', '$\\beta_{2k}$', '$C$', '$T$', '$TP$', '$RS$', '$RB$']
+PARAM_SAFE = ['beta1k', 'beta2k', 'C', 'TmaxCH', 'TmaxP', 'SWA', 'BOWA']
+SECTIONS = ['Hub', 'Mid', 'Tip']
 
 def load_test_geom():
     """加载归一化测试集几何参数"""
-    _, _, _, info = get_dataloaders(batch_size=256, use_merged=True)
-    return info["test_geom"]
-
+    (_, _, _, info) = get_dataloaders(batch_size=256, use_merged=True)
+    return info['test_geom']
 
 def load_gen_geom(model_name):
     """从 inference 输出加载归一化生成几何参数"""
-    path = os.path.join(MODELS_DIR, model_name, "results", "inference", "geometry_norm.npy")
+    path = os.path.join(MODELS_DIR, model_name, 'results', 'inference', 'geometry_norm.npy')
     if not os.path.exists(path):
         return None
     return np.load(path)
-
 
 def resolve_models(cli_models):
     """Resolve which models to plot, preferring CLI over in-file config."""
     if cli_models:
         models = cli_models
-        source = "CLI --model"
+        source = 'CLI --model'
     elif PLOT_MODELS:
         models = PLOT_MODELS
-        source = "PLOT_MODELS"
+        source = 'PLOT_MODELS'
     else:
         models = ALL_MODELS
-        source = "ALL_MODELS"
-
+        source = 'ALL_MODELS'
     unknown = [m for m in models if m not in ALL_MODELS]
     if unknown:
-        raise ValueError(f"Unknown model(s): {unknown}. Available models: {ALL_MODELS}")
-
-    # Keep user-defined order while removing duplicates.
-    return list(dict.fromkeys(models)), source
-
+        raise ValueError(f'Unknown model(s): {unknown}. Available models: {ALL_MODELS}')
+    return (list(dict.fromkeys(models)), source)
 
 def _safe_kde(values, x_grid):
     """安全计算 KDE, 数据不足或方差为零时返回 None"""
-    values = values[(np.isfinite(values)) & (values >= -0.5) & (values <= 1.5)]
-    if len(values) < 10 or np.std(values) < 1e-8:
+    values = values[np.isfinite(values) & (values >= -0.5) & (values <= 1.5)]
+    if len(values) < 10 or np.std(values) < 1e-08:
         return None
     try:
         kde = gaussian_kde(values, bw_method=KDE_BW_METHOD)
@@ -188,23 +99,16 @@ def _safe_kde(values, x_grid):
     except Exception:
         return None
 
-
-# ═══════════════════════════════════════════════════════════════════
-#  分布相似度评估
-# ═══════════════════════════════════════════════════════════════════
-
 def _js_divergence(real_vals, gen_vals, n_bins=100):
     """基于直方图离散化计算 JS 散度 (对称, 有界 [0,1])"""
-    lo = min(real_vals.min(), gen_vals.min()) - 1e-6
-    hi = max(real_vals.max(), gen_vals.max()) + 1e-6
+    lo = min(real_vals.min(), gen_vals.min()) - 1e-06
+    hi = max(real_vals.max(), gen_vals.max()) + 1e-06
     bins = np.linspace(lo, hi, n_bins + 1)
-    p, _ = np.histogram(real_vals, bins=bins, density=False)
-    q, _ = np.histogram(gen_vals, bins=bins, density=False)
-    # 归一化为概率质量分布 (sum=1)
+    (p, _) = np.histogram(real_vals, bins=bins, density=False)
+    (q, _) = np.histogram(gen_vals, bins=bins, density=False)
     p = p.astype(float) / (p.sum() + 1e-12)
     q = q.astype(float) / (q.sum() + 1e-12)
-    return float(jensenshannon(p, q) ** 2)  # scipy 返回 sqrt(JSD), 平方得 JSD
-
+    return float(jensenshannon(p, q) ** 2)
 
 def compute_similarity(test_geom, gen_data):
     """
@@ -215,381 +119,239 @@ def compute_similarity(test_geom, gen_data):
       - KS Statistic: Kolmogorov-Smirnov 统计量, 越小越好
       - JS Divergence: Jensen-Shannon 散度, 越小越好
     """
-    results = {}  # {model_name: {metric: {param_name: value, ..., "mean": ...}}}
-
-    for m, gen_geom in gen_data.items():
-        wd_list, ks_list, js_list = [], [], []
+    results = {}
+    for (m, gen_geom) in gen_data.items():
+        (wd_list, ks_list, js_list) = ([], [], [])
         param_details = []
-
         for dim_idx in range(21):
-            sec, var = dim_idx // 7, dim_idx % 7
-            param_name = f"{SECTIONS[sec]}_{PARAM_SAFE[var]}"
-
+            (sec, var) = (dim_idx // 7, dim_idx % 7)
+            param_name = f'{SECTIONS[sec]}_{PARAM_SAFE[var]}'
             real = test_geom[:, dim_idx]
             gen = gen_geom[:, dim_idx]
             gen = gen[np.isfinite(gen)]
-
             wd = wasserstein_distance(real, gen)
-            ks_stat, _ = ks_2samp(real, gen)
+            (ks_stat, _) = ks_2samp(real, gen)
             js = _js_divergence(real, gen)
-
             wd_list.append(wd)
             ks_list.append(ks_stat)
             js_list.append(js)
-            param_details.append({
-                "param": param_name, "wd": wd, "ks": ks_stat, "js": js,
-            })
-
-        results[m] = {
-            "params": param_details,
-            "wd_mean": float(np.mean(wd_list)),
-            "ks_mean": float(np.mean(ks_list)),
-            "js_mean": float(np.mean(js_list)),
-        }
-
+            param_details.append({'param': param_name, 'wd': wd, 'ks': ks_stat, 'js': js})
+        results[m] = {'params': param_details, 'wd_mean': float(np.mean(wd_list)), 'ks_mean': float(np.mean(ks_list)), 'js_mean': float(np.mean(js_list))}
     return results
-
 
 def print_ranking(sim_results):
     """打印分布相似度排名表"""
     models = list(sim_results.keys())
     if not models:
-        return [], {}
-
-    # ── 三项指标分别排名 ──
-    wd_rank = sorted(models, key=lambda m: sim_results[m]["wd_mean"])
-    ks_rank = sorted(models, key=lambda m: sim_results[m]["ks_mean"])
-    js_rank = sorted(models, key=lambda m: sim_results[m]["js_mean"])
-
-    # 综合排名: 三项排名之和
+        return ([], {})
+    wd_rank = sorted(models, key=lambda m: sim_results[m]['wd_mean'])
+    ks_rank = sorted(models, key=lambda m: sim_results[m]['ks_mean'])
+    js_rank = sorted(models, key=lambda m: sim_results[m]['js_mean'])
     rank_scores = {}
     for m in models:
-        rank_scores[m] = (wd_rank.index(m) + ks_rank.index(m) + js_rank.index(m))
+        rank_scores[m] = wd_rank.index(m) + ks_rank.index(m) + js_rank.index(m)
     overall_rank = sorted(models, key=lambda m: rank_scores[m])
-
-    print("\n" + "=" * 90)
-    print("  Distribution Similarity Ranking (lower = more similar to real data)")
-    print("=" * 90)
-
-    # 表头
-    header = (f"  {'Rank':<5s} {'Model':<12s} "
-              f"{'Wasserstein':>12s} {'KS Stat':>12s} {'JS Div':>12s} "
-              f"{'Score':>7s}")
+    print('\n' + '=' * 90)
+    print('  Distribution Similarity Ranking (lower = more similar to real data)')
+    print('=' * 90)
+    header = f"  {'Rank':<5s} {'Model':<12s} {'Wasserstein':>12s} {'KS Stat':>12s} {'JS Div':>12s} {'Score':>7s}"
     print(header)
-    print("  " + "-" * 86)
-
-    for rank, m in enumerate(overall_rank, 1):
+    print('  ' + '-' * 86)
+    for (rank, m) in enumerate(overall_rank, 1):
         r = sim_results[m]
         display = DISPLAY.get(m, m)
         wd_r = wd_rank.index(m) + 1
         ks_r = ks_rank.index(m) + 1
         js_r = js_rank.index(m) + 1
-        print(f"  {rank:<5d} {display:<12s} "
-              f"{r['wd_mean']:>10.4f}({wd_r}) "
-              f"{r['ks_mean']:>10.4f}({ks_r}) "
-              f"{r['js_mean']:>10.4f}({js_r}) "
-              f"{rank_scores[m]:>5d}")
-
-    print("=" * 90)
-
-    # ── 各参数明细 (最佳模型) ──
+        print(f"  {rank:<5d} {display:<12s} {r['wd_mean']:>10.4f}({wd_r}) {r['ks_mean']:>10.4f}({ks_r}) {r['js_mean']:>10.4f}({js_r}) {rank_scores[m]:>5d}")
+    print('=' * 90)
     best = overall_rank[0]
-    print(f"\n  Best model: {DISPLAY.get(best, best)}")
+    print(f'\n  Best model: {DISPLAY.get(best, best)}')
     print(f"  {'Parameter':<14s} {'Wasserstein':>12s} {'KS Stat':>12s} {'JS Div':>12s}")
-    print("  " + "-" * 54)
-    for p in sim_results[best]["params"]:
+    print('  ' + '-' * 54)
+    for p in sim_results[best]['params']:
         print(f"  {p['param']:<14s} {p['wd']:>12.4f} {p['ks']:>12.4f} {p['js']:>12.4f}")
-
-    return overall_rank, rank_scores
-
+    return (overall_rank, rank_scores)
 
 def save_similarity(sim_results, overall_rank, rank_scores, out_dir):
     """保存相似度结果为 txt + json"""
     os.makedirs(out_dir, exist_ok=True)
-
-    # ── JSON (程序可读) ──
     json_data = {}
     for m in sim_results:
         r = sim_results[m]
-        json_data[m] = {
-            "display": DISPLAY.get(m, m),
-            "wd_mean": r["wd_mean"],
-            "ks_mean": r["ks_mean"],
-            "js_mean": r["js_mean"],
-            "rank_score": rank_scores[m],
-            "overall_rank": overall_rank.index(m) + 1,
-            "params": r["params"],
-        }
-    with open(os.path.join(out_dir, "distribution_similarity.json"), "w") as f:
+        json_data[m] = {'display': DISPLAY.get(m, m), 'wd_mean': r['wd_mean'], 'ks_mean': r['ks_mean'], 'js_mean': r['js_mean'], 'rank_score': rank_scores[m], 'overall_rank': overall_rank.index(m) + 1, 'params': r['params']}
+    with open(os.path.join(out_dir, 'distribution_similarity.json'), 'w') as f:
         json.dump(json_data, f, indent=2)
-
-    # ── TXT (人类可读) ──
-    txt_path = os.path.join(out_dir, "distribution_similarity.txt")
-    with open(txt_path, "w", encoding="utf-8") as f:
-        f.write("Distribution Similarity Ranking\n")
-        f.write("(lower = more similar to real data)\n")
-        f.write("=" * 75 + "\n\n")
-        f.write(f"{'Rank':<5s} {'Model':<12s} {'Wasserstein':>12s} "
-                f"{'KS Stat':>12s} {'JS Div':>12s} {'Score':>7s}\n")
-        f.write("-" * 75 + "\n")
-        for rank, m in enumerate(overall_rank, 1):
+    txt_path = os.path.join(out_dir, 'distribution_similarity.txt')
+    with open(txt_path, 'w', encoding='utf-8') as f:
+        f.write('Distribution Similarity Ranking\n')
+        f.write('(lower = more similar to real data)\n')
+        f.write('=' * 75 + '\n\n')
+        f.write(f"{'Rank':<5s} {'Model':<12s} {'Wasserstein':>12s} {'KS Stat':>12s} {'JS Div':>12s} {'Score':>7s}\n")
+        f.write('-' * 75 + '\n')
+        for (rank, m) in enumerate(overall_rank, 1):
             r = sim_results[m]
             display = DISPLAY.get(m, m)
-            f.write(f"{rank:<5d} {display:<12s} {r['wd_mean']:>12.4f} "
-                    f"{r['ks_mean']:>12.4f} {r['js_mean']:>12.4f} "
-                    f"{rank_scores[m]:>5d}\n")
-        f.write("=" * 75 + "\n\n")
-
-        # 每个模型的 21 参数明细
+            f.write(f"{rank:<5d} {display:<12s} {r['wd_mean']:>12.4f} {r['ks_mean']:>12.4f} {r['js_mean']:>12.4f} {rank_scores[m]:>5d}\n")
+        f.write('=' * 75 + '\n\n')
         for m in overall_rank:
             display = DISPLAY.get(m, m)
-            f.write(f"\n--- {display} ---\n")
+            f.write(f'\n--- {display} ---\n')
             f.write(f"{'Parameter':<14s} {'Wasserstein':>12s} {'KS Stat':>12s} {'JS Div':>12s}\n")
-            f.write("-" * 54 + "\n")
-            for p in sim_results[m]["params"]:
+            f.write('-' * 54 + '\n')
+            for p in sim_results[m]['params']:
                 f.write(f"{p['param']:<14s} {p['wd']:>12.4f} {p['ks']:>12.4f} {p['js']:>12.4f}\n")
-
-    # ── CSV (方便 Excel) ──
-    csv_path = os.path.join(out_dir, "distribution_similarity.csv")
-    with open(csv_path, "w", newline="") as f:
+    csv_path = os.path.join(out_dir, 'distribution_similarity.csv')
+    with open(csv_path, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(["Model", "Parameter", "Wasserstein", "KS_Stat", "JS_Div"])
+        writer.writerow(['Model', 'Parameter', 'Wasserstein', 'KS_Stat', 'JS_Div'])
         for m in overall_rank:
             display = DISPLAY.get(m, m)
-            for p in sim_results[m]["params"]:
-                writer.writerow([display, p["param"],
-                                 f"{p['wd']:.6f}", f"{p['ks']:.6f}", f"{p['js']:.6f}"])
-
-    print(f"\n  Saved similarity results: {out_dir}/distribution_similarity.{{json,txt,csv}}")
-
-
-# ═══════════════════════════════════════════════════════════════════
-#  1. 组图 (3 sections x 7 params)
-# ═══════════════════════════════════════════════════════════════════
+            for p in sim_results[m]['params']:
+                writer.writerow([display, p['param'], f"{p['wd']:.6f}", f"{p['ks']:.6f}", f"{p['js']:.6f}"])
+    print(f'\n  Saved similarity results: {out_dir}/distribution_similarity.{{json,txt,csv}}')
 
 def plot_grid(test_geom, gen_data):
     """3x7 组图: 行=截面 (Tip/Mid/Hub 从上到下), 列=参数"""
     x_grid = np.linspace(0, 1, KDE_GRID_POINTS)
     models = list(gen_data.keys())
-
-    fig, axes = plt.subplots(3, 7, figsize=FIG_SIZE_GRID)
-
-    # 跟踪哪些 label 已注册, 避免重复但确保不遗漏
+    (fig, axes) = plt.subplots(3, 7, figsize=FIG_SIZE_GRID)
     registered_labels = set()
-
     for sec in range(3):
-        row = 2 - sec  # Tip(2) 在最上, Hub(0) 在最下
+        row = 2 - sec
         for var in range(7):
             dim_idx = sec * 7 + var
             ax = axes[row, var]
-
-            # 真实数据
             real_vals = test_geom[:, dim_idx]
             real_kde = _safe_kde(real_vals, x_grid)
             if real_kde is not None:
-                lbl = "Real" if "Real" not in registered_labels else None
-                ax.fill_between(x_grid, real_kde, alpha=REAL_FILL_ALPHA,
-                                color=REAL_COLOR)
+                lbl = 'Real' if 'Real' not in registered_labels else None
+                ax.fill_between(x_grid, real_kde, alpha=REAL_FILL_ALPHA, color=REAL_COLOR)
                 ax.plot(x_grid, real_kde, color=REAL_COLOR, lw=REAL_LW, label=lbl)
                 if lbl:
                     registered_labels.add(lbl)
-
-            # 生成数据
             for m in models:
                 gen_vals = gen_data[m][:, dim_idx]
                 gen_kde = _safe_kde(gen_vals, x_grid)
                 if gen_kde is not None:
                     disp = DISPLAY.get(m, m)
                     lbl = disp if disp not in registered_labels else None
-                    ax.plot(x_grid, gen_kde, color=COLORS.get(m, "#666"),
-                            lw=GEN_LW, alpha=GEN_ALPHA, label=lbl)
+                    ax.plot(x_grid, gen_kde, color=COLORS.get(m, '#666'), lw=GEN_LW, alpha=GEN_ALPHA, label=lbl)
                     if lbl:
                         registered_labels.add(lbl)
-
             ax.set_xlim(0, 1)
             ax.set_xticks([0.0, 0.5, 1.0])
             ax.set_yticks([])
-            ax.tick_params(axis="both", labelsize=FONT_SIZE_TICK)
-
-            # 列标题 (参数名) — 仅顶行
+            ax.tick_params(axis='both', labelsize=FONT_SIZE_TICK)
             if row == 0:
                 ax.set_title(PARAM_LABELS[var], fontsize=FONT_SIZE_TITLE, pad=8)
-            # 行标签 (截面名) — 仅左列
             if var == 0:
-                ax.set_ylabel(SECTIONS[sec], fontsize=FONT_SIZE_SECTION,
-                              fontweight="bold")
-            # 底行 x 轴标签
+                ax.set_ylabel(SECTIONS[sec], fontsize=FONT_SIZE_SECTION, fontweight='bold')
             if row == 2:
-                ax.set_xlabel("Normalized value", fontsize=FONT_SIZE_LABEL)
-
-    # 统一图例放置在图的上方 (从所有子图收集, 去重)
+                ax.set_xlabel('Normalized value', fontsize=FONT_SIZE_LABEL)
     label_to_handle = {}
     for ax_row in axes:
         for ax in ax_row:
-            h, l = ax.get_legend_handles_labels()
-            for hi, li in zip(h, l):
+            (h, l) = ax.get_legend_handles_labels()
+            for (hi, li) in zip(h, l):
                 if li not in label_to_handle:
                     label_to_handle[li] = hi
-
-    # 按 LEGEND_ORDER 排序: Real 在最前, 然后按指定模型顺序, 其余按 ALL_MODELS 兜底
     ordered_labels = []
-    if "Real" in label_to_handle:
-        ordered_labels.append("Real")
+    if 'Real' in label_to_handle:
+        ordered_labels.append('Real')
     for mk in LEGEND_ORDER:
         disp = DISPLAY.get(mk, mk)
         if disp in label_to_handle and disp not in ordered_labels:
             ordered_labels.append(disp)
-    # 兜底: 未在 LEGEND_ORDER 中的剩余模型按 ALL_MODELS 顺序追加
     for mk in ALL_MODELS:
         disp = DISPLAY.get(mk, mk)
         if disp in label_to_handle and disp not in ordered_labels:
             ordered_labels.append(disp)
-
     all_labels = ordered_labels
     all_handles = [label_to_handle[l] for l in ordered_labels]
     if all_handles:
-        fig.legend(all_handles, all_labels, loc="upper center",
-                   ncol=min(len(all_handles), 9),
-                   prop={"size": FONT_SIZE_LEGEND},
-                   framealpha=0.92, edgecolor="#cccccc",
-                   bbox_to_anchor=(0.5, 1.02))
-
+        fig.legend(all_handles, all_labels, loc='upper center', ncol=min(len(all_handles), 9), prop={'size': FONT_SIZE_LEGEND}, framealpha=0.92, edgecolor='#cccccc', bbox_to_anchor=(0.5, 1.02))
     plt.tight_layout(h_pad=0.6, w_pad=0.4)
-    fig.subplots_adjust(top=0.90)
-
+    fig.subplots_adjust(top=0.9)
     os.makedirs(FIG_DIR, exist_ok=True)
-    out_path = os.path.join(FIG_DIR, f"kde_distribution.{SAVE_FORMAT}")
+    out_path = os.path.join(FIG_DIR, f'kde_distribution.{SAVE_FORMAT}')
     fig.savefig(out_path, dpi=SAVE_DPI)
     plt.close(fig)
-    print(f"  Saved grid: {out_path}")
-
-
-# ═══════════════════════════════════════════════════════════════════
-#  2. 单参数独立图 (保存至每个模型 figures/ 下)
-# ═══════════════════════════════════════════════════════════════════
+    print(f'  Saved grid: {out_path}')
 
 def plot_individual(test_geom, gen_data):
     """为每个模型 x 每个参数 生成独立 KDE 图"""
     x_grid = np.linspace(0, 1, KDE_GRID_POINTS)
-
-    # 临时切换 rcParams 到单图字号, 防止组图大字号污染
-    _saved_rc = {k: plt.rcParams[k] for k in
-                 ["font.size", "axes.labelsize", "axes.titlesize",
-                  "xtick.labelsize", "ytick.labelsize"]}
-    plt.rcParams.update({
-        "font.size":       FONT_SIZE_SINGLE_TICK,
-        "axes.labelsize":  FONT_SIZE_SINGLE_LABEL,
-        "axes.titlesize":  FONT_SIZE_SINGLE_TITLE,
-        "xtick.labelsize": FONT_SIZE_SINGLE_TICK,
-        "ytick.labelsize": FONT_SIZE_SINGLE_TICK,
-    })
-
-    for m, gen_geom in gen_data.items():
-        fig_dir = os.path.join(MODELS_DIR, m, "figures")
+    _saved_rc = {k: plt.rcParams[k] for k in ['font.size', 'axes.labelsize', 'axes.titlesize', 'xtick.labelsize', 'ytick.labelsize']}
+    plt.rcParams.update({'font.size': FONT_SIZE_SINGLE_TICK, 'axes.labelsize': FONT_SIZE_SINGLE_LABEL, 'axes.titlesize': FONT_SIZE_SINGLE_TITLE, 'xtick.labelsize': FONT_SIZE_SINGLE_TICK, 'ytick.labelsize': FONT_SIZE_SINGLE_TICK})
+    for (m, gen_geom) in gen_data.items():
+        fig_dir = os.path.join(MODELS_DIR, m, 'figures')
         os.makedirs(fig_dir, exist_ok=True)
         display = DISPLAY.get(m, m)
-        color = COLORS.get(m, "#2980B9")
-
+        color = COLORS.get(m, '#2980B9')
         for sec in range(3):
             for var in range(7):
                 dim_idx = sec * 7 + var
-                fig, ax = plt.subplots(figsize=FIG_SIZE_SINGLE)
-
-                # 真实数据
+                (fig, ax) = plt.subplots(figsize=FIG_SIZE_SINGLE)
                 real_vals = test_geom[:, dim_idx]
                 real_kde = _safe_kde(real_vals, x_grid)
                 if real_kde is not None:
-                    ax.fill_between(x_grid, real_kde, alpha=REAL_FILL_ALPHA,
-                                    color=REAL_COLOR)
-                    ax.plot(x_grid, real_kde, color=REAL_COLOR,
-                            lw=REAL_LW, label="Real")
-
-                # 生成数据
+                    ax.fill_between(x_grid, real_kde, alpha=REAL_FILL_ALPHA, color=REAL_COLOR)
+                    ax.plot(x_grid, real_kde, color=REAL_COLOR, lw=REAL_LW, label='Real')
                 gen_vals = gen_geom[:, dim_idx]
                 gen_kde = _safe_kde(gen_vals, x_grid)
                 if gen_kde is not None:
-                    ax.fill_between(x_grid, gen_kde, alpha=0.10, color=color)
-                    ax.plot(x_grid, gen_kde, color=color,
-                            lw=GEN_LW + 0.3, alpha=GEN_ALPHA, label=display)
-
+                    ax.fill_between(x_grid, gen_kde, alpha=0.1, color=color)
+                    ax.plot(x_grid, gen_kde, color=color, lw=GEN_LW + 0.3, alpha=GEN_ALPHA, label=display)
                 ax.set_xlim(0, 1)
                 ax.set_xticks([0.0, 0.25, 0.5, 0.75, 1.0])
                 ax.set_yticks([])
-                ax.set_xlabel("Normalized value", fontsize=FONT_SIZE_SINGLE_LABEL)
-                ax.set_ylabel("Density", fontsize=FONT_SIZE_SINGLE_LABEL)
-                ax.set_title(f"{display}  \u2014  {SECTIONS[sec]} {PARAM_LABELS[var]}",
-                             fontsize=FONT_SIZE_SINGLE_TITLE, fontweight="medium", pad=10)
+                ax.set_xlabel('Normalized value', fontsize=FONT_SIZE_SINGLE_LABEL)
+                ax.set_ylabel('Density', fontsize=FONT_SIZE_SINGLE_LABEL)
+                ax.set_title(f'{display}  —  {SECTIONS[sec]} {PARAM_LABELS[var]}', fontsize=FONT_SIZE_SINGLE_TITLE, fontweight='medium', pad=10)
                 ax.tick_params(labelsize=FONT_SIZE_SINGLE_TICK)
-                ax.legend(fontsize=FONT_SIZE_SINGLE_LEGEND, loc="upper right",
-                          framealpha=0.92, edgecolor="#cccccc")
-
+                ax.legend(fontsize=FONT_SIZE_SINGLE_LEGEND, loc='upper right', framealpha=0.92, edgecolor='#cccccc')
                 plt.tight_layout()
-                fname = f"kde_{SECTIONS[sec]}_{PARAM_SAFE[var]}.{SAVE_FORMAT}"
+                fname = f'kde_{SECTIONS[sec]}_{PARAM_SAFE[var]}.{SAVE_FORMAT}'
                 fig.savefig(os.path.join(fig_dir, fname), dpi=SAVE_DPI)
                 plt.close(fig)
-
-        print(f"  Saved 21 KDE plots: {fig_dir}/kde_{{section}}_{{param}}.{SAVE_FORMAT}")
-
-    # 恢复 rcParams
+        print(f'  Saved 21 KDE plots: {fig_dir}/kde_{{section}}_{{param}}.{SAVE_FORMAT}')
     plt.rcParams.update(_saved_rc)
 
-
-# ═══════════════════════════════════════════════════════════════════
-#  main
-# ═══════════════════════════════════════════════════════════════════
-
 def main():
-    parser = argparse.ArgumentParser(description="绘制 21 个设计参数的概率密度分布图")
-    parser.add_argument("--model", nargs="*", default=None,
-                        help="模型名称 (可多个), 不指定则运行全部")
-    parser.add_argument("--no-individual", action="store_true",
-                        help="跳过单参数独立图 (只画组图)")
+    parser = argparse.ArgumentParser(description='绘制 21 个设计参数的概率密度分布图')
+    parser.add_argument('--model', nargs='*', default=None, help='模型名称 (可多个), 不指定则运行全部')
+    parser.add_argument('--no-individual', action='store_true', help='跳过单参数独立图 (只画组图)')
     args = parser.parse_args()
-
-    models_to_run, model_source = resolve_models(args.model)
-
-    print("=" * 60)
-    print("  Plot Parameter Distribution (KDE)")
-    print(f"  Models: {models_to_run}")
-    print(f"  Model source: {model_source}")
-    print("=" * 60)
-
-    # 加载测试集真实数据
-    print("\nLoading test set geometry...")
+    (models_to_run, model_source) = resolve_models(args.model)
+    print('=' * 60)
+    print('  Plot Parameter Distribution (KDE)')
+    print(f'  Models: {models_to_run}')
+    print(f'  Model source: {model_source}')
+    print('=' * 60)
+    print('\nLoading test set geometry...')
     test_geom = load_test_geom()
-    print(f"  Test set shape: {test_geom.shape}")
-
-    # 加载各模型生成数据
+    print(f'  Test set shape: {test_geom.shape}')
     gen_data = {}
     for m in models_to_run:
         geom = load_gen_geom(m)
         if geom is None:
-            print(f"  [{m}] No inference results, skip (run inference.py --model {m} first)")
+            print(f'  [{m}] No inference results, skip (run inference.py --model {m} first)')
             continue
         gen_data[m] = geom
-        print(f"  [{m}] Loaded {geom.shape[0]} samples")
-
+        print(f'  [{m}] Loaded {geom.shape[0]} samples')
     if not gen_data:
-        print("\nNo generated data found. Run inference.py first.")
+        print('\nNo generated data found. Run inference.py first.')
         return
-
-    # 分布相似度评估 & 排名
-    print("\nComputing distribution similarity...")
+    print('\nComputing distribution similarity...')
     sim_results = compute_similarity(test_geom, gen_data)
-    overall_rank, rank_scores = print_ranking(sim_results)
+    (overall_rank, rank_scores) = print_ranking(sim_results)
     save_similarity(sim_results, overall_rank, rank_scores, FIG_DIR)
-
-    # 组图
-    print("\nPlotting 3x7 grid...")
+    print('\nPlotting 3x7 grid...')
     plot_grid(test_geom, gen_data)
-
-    # 单参数独立图
     if not args.no_individual:
-        print("\nPlotting individual KDE plots...")
+        print('\nPlotting individual KDE plots...')
         plot_individual(test_geom, gen_data)
-
-    print("\nDone!")
-
-
-if __name__ == "__main__":
+    print('\nDone!')
+if __name__ == '__main__':
     main()

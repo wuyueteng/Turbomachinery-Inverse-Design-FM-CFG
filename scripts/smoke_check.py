@@ -16,7 +16,6 @@ def main():
         'fm_cfg': dict(hidden_dim=32, n_blocks=1, sampling_steps=2),
         'fm': dict(hidden_dim=32, n_blocks=1, sampling_steps=2),
         'ddpm': dict(hidden_dim=32, n_blocks=1, timesteps=4),
-        'ddpm_cfg': dict(hidden_dim=32, n_blocks=1, timesteps=4),
         'ar': dict(dim=32, n_heads=2, n_layers=1),
         'cvae': dict(hidden_dim=32, latent_dim=8, n_layers=1),
         'cinn': dict(hidden_dim=32, n_flows=2),
@@ -43,9 +42,6 @@ def main():
     assert y.shape == (4, 3) and torch.isfinite(y).all()
     y.square().mean().backward()
     print('PASS performance_predictor: forward and backward (4, 3)')
-    from models.pa_fm_cfg.model import PerformanceAwareFlowMatching
-    assert callable(PerformanceAwareFlowMatching)
-    print('PASS pa_fm_cfg import; full execution requires the research surrogate checkpoint')
 
 
 if __name__ == '__main__':

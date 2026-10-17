@@ -1,103 +1,103 @@
-# Turbomachinery Inverse Design with Flow Matching and Classifier-Free Guidance
+# Turbomachinery inverse design with flow matching and classifier-free guidance
 
-Research code accompanying **A generative framework for turbomachinery aerodynamic inverse design based on flow matching with classifier-free guidance**.
+[中文说明](README_zh.md) · [Training guide](docs/TRAINING.md) · [Paper figure map](docs/PAPER_RESULTS.md) · [Data dictionary](data/README.md)
 
-The framework generates 21-dimensional compressor rotor geometry parameters conditioned on three aerodynamic performance targets. A Transformer surrogate predicts performance, and a common evaluation interface supports generative-model comparison and hyperparameter optimization.
+Research software and numerical data accompanying **A generative framework for turbomachinery aerodynamic inverse design based on flow matching with classifier-free guidance** by Yueteng Wu, Zihao Zhu, Juan Du, Xinglong Zhang, Penghao Duan and Yangyang Wang.
 
-## Models and source layout
+The framework maps three aerodynamic targets to 21 rotor geometry parameters. A Transformer encoder surrogate (TeM) supports performance prediction and data augmentation. Generated candidates can subsequently undergo independent CFD assessment.
 
-| Paper / implementation | Directory | Role |
+## Included models
+
+| Identifier | Model | Role |
 |---|---|---|
-| cFM-CFG | `models/fm_cfg` | Conditional flow matching with classifier-free guidance |
-| cAR | `models/ar` | Autoregressive Transformer |
-| cVAE | `models/cvae` | Conditional variational autoencoder |
-| cWGAN-GP | `models/cgan` | Conditional Wasserstein GAN with gradient penalty |
-| cDDPM | `models/ddpm` | Conditional denoising diffusion model |
-| cINN | `models/cinn` | Conditional affine-coupling normalizing flow |
-| FM without CFG | `models/fm` | Ablation implementation |
-| DDPM with CFG | `models/ddpm_cfg` | Ablation implementation |
-| PA-FM-CFG | `models/pa_fm_cfg` | Performance-aware extension |
-| Transformer predictor | `models/performance_predictor` | Geometry-to-performance surrogate |
+| `fm_cfg` | cFM-CFG | Proposed conditional flow-matching method |
+| `ar` | cAR | Autoregressive Transformer baseline |
+| `cvae` | cVAE | Conditional variational autoencoder baseline |
+| `cgan` | cWGAN-GP | Conditional Wasserstein GAN baseline |
+| `ddpm` | cDDPM | Conditional diffusion baseline |
+| `cinn` | cINN | Conditional invertible-network baseline |
+| `performance_predictor` | TeM | Transformer performance predictor |
+| `fm` | Standard FM | No-CFG ablation in Fig. 9d–f |
 
-`shared/` provides data loading, normalization and evaluation. `scripts/` provides Optuna optimization, inference and plotting. `experiments/` contains guidance ablations, generation trajectories, computational-cost measurement, repeated-seed robustness and Monte Carlo dropout inference.
+Only models used in the paper are part of the current release. `--model all` trains the six comparison generators sequentially; TeM and standard FM have separate commands.
 
-## Installation
+## Install
 
-Reference environment: Python 3.9.18, PyTorch 2.3.0 (CUDA 11.8 in the original environment). Install a PyTorch build suitable for your hardware, then run from the repository root:
+Reference environment: **Python 3.9.18, PyTorch 2.3.0**, with CUDA 11.8 for the original GPU environment. Use a clean environment and install a suitable PyTorch build for your hardware. The commands below are the same on Windows and Linux:
 
 ```bash
+git clone https://github.com/wuyueteng/Turbomachinery-Inverse-Design-FM-CFG.git
+cd Turbomachinery-Inverse-Design-FM-CFG
 python -m pip install -r requirements.txt
+python scripts/check_data.py --check-results
 python scripts/smoke_check.py
 ```
 
-The smoke check uses small random tensors to check software interfaces. It does not generate research results or require research data. Full training benefits from a CUDA-capable GPU.
+CUDA is recommended for full training. Use `--device cpu` for small software checks, or `--device cuda:0` to select a GPU. The default `auto` selects CUDA when available. All commands below run from the repository root; no source-code edits are needed.
 
-## Data and pretrained weights
+## Train, generate and evaluate
 
-Research datasets and trained weights are not bundled in this source repository. Obtain the research inputs from the corresponding authors under the study's data-access arrangements. See [data/README.md](data/README.md) for filenames, shapes, variable ordering and normalization.
+Datasets are included. Pretrained weights are **not distributed**; users train their own networks. The following commands use the supplied selected configurations without running hyperparameter search first:
 
-Place the surrogate checkpoint at:
+```bash
+python scripts/train.py --model performance_predictor --output-dir runs/tem
+python scripts/train.py --model fm_cfg --output-dir runs/fm_cfg
+python scripts/inference.py --run-dir runs/fm_cfg --predictor-run runs/tem
+```
+
+The last command generates candidates for 100 held-out targets, with 10 designs per target, and evaluates their performance using the trained surrogate. It writes geometry arrays, target/predicted performance and metrics under `runs/fm_cfg/inference/`. Omit `--predictor-run` for generation only. These are surrogate predictions, not CFD solutions.
+
+Train the six-model comparison or the no-CFG ablation:
+
+```bash
+python scripts/train.py --model all --output-dir runs/comparison
+python scripts/train.py --model fm --output-dir runs/fm
+```
+
+Every run saves its actual configuration, split indices, input hashes, loss history, `best.pt` for inference and `last.pt` for continuation. The training defaults retain the selected architecture and original optimizer/validation rules. Changing a configuration creates a new experiment; it does not modify archived paper results.
+
+```bash
+python scripts/train.py --model fm_cfg --epochs 300 --batch-size 128 --device cuda:0 --output-dir runs/custom
+python scripts/train.py --resume runs/custom --device cuda:0
+```
+
+See [the training guide](docs/TRAINING.md) for custom JSON configurations, exact continuation, training seeds, raw target input, HPO and software tests. Reduced batches/epochs are useful for checking installation; they are not paper-performance runs.
+
+## Reproduce paper plots without training
+
+```bash
+python scripts/verify_paper_results.py
+python scripts/reproduce_figures.py --all
+```
+
+Archived numerical outputs are under `paper_results/`. The command regenerates network-related figures as PNG/PDF under `outputs/paper_figures/`, including mixed-figure network panels only. Use `--figure 2 3 6` to select figures. The [figure map](docs/PAPER_RESULTS.md) identifies every supported figure and its sources. The replotting entrypoint preserves numerical definitions while using portable layout/fonts; it does not recreate CFD plots or require network weights.
+
+## Data and provenance
+
+- Dataset I: **3,840 CFD-labelled geometry/performance pairs**.
+- Additional set: **10,000 geometries with TeM-predicted labels**.
+- Dataset II: **13,840 pairs**, in the original stored order.
+
+The historical `_5200` filenames are retained for code compatibility. Labels are ordered **mass flow (kg/s), isentropic efficiency, total pressure ratio**. Input arrays, lossless CSV exports and a row-level source mapping are provided; see [data/README.md](data/README.md). Predictor and generator normalization uses the CFD reference scale, as implemented in the supplied research code.
+
+The repository includes the benchmark, uncertainty, robustness, HPO histories, trajectories, ablations and cost measurements corresponding to the network analyses. New training outputs are stored separately. Full retraining is stochastic and may differ from the archived realization; plots reconstructed from archived data retain the reported values. The robustness archive varies training seeds on a fixed data split.
+
+## Layout
 
 ```text
-models/performance_predictor/checkpoints/best_model_in_testdataset.pth
+configs/        Selected model and training settings
+models/         Paper network definitions and original training entrypoints
+shared/         Loading, evaluation and run-based training
+scripts/        Training, generation, HPO, verification and plotting
+experiments/    Original network-analysis workflows
+data/           Original and augmented datasets, schema and provenance
+paper_results/  Archived numerical results, source hashes and figure previews
+tests/          Short training, resume and CLI integration tests
+docs/           Training, implementation, validation and figure mapping
 ```
 
-The six main generators use `models/<model>/checkpoints/<model>_hpo.pth` and the accompanying `models/<model>/results/hpo_best_<model>.json`. Included JSON files preserve the available local run records; their trial counts and settings are not overwritten to match a different experimental budget.
+## Citation and license
 
-## Workflow
+Use [CITATION.cff](CITATION.cff) to cite this software release and identify the associated manuscript. The manuscript title is provided without an invented publication DOI. Code is licensed under [MIT](LICENSE); datasets, numerical results and result figures are licensed under [CC BY 4.0](LICENSE-DATA). Third-party notices remain in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-### 1. Train the performance predictor
-
-```bash
-python models/performance_predictor/train.py --epochs 300
-```
-
-This saves checkpoints in the location expected by the shared evaluator. Data paths, output directory, batch size and split seed can be set through `--help`. The historical `best_model_in_testdataset.pth` filename is retained for compatibility; selection uses the validation loader in the training script.
-
-Predictor architecture search is available separately:
-
-```bash
-python models/performance_predictor/optuna_hpo.py --n-trials 100 --epochs 300
-```
-
-This portable entrypoint uses the original predictor search space and saves the selected architecture alongside its weights. Its output is for the searched architecture; the shared evaluator expects the fixed predictor architecture described in the paper, so do not replace that evaluator's checkpoint with weights from a different architecture.
-
-### 2. Optimize and train generative models
-
-```bash
-python scripts/optuna_hpo.py --model fm_cfg --n_trials 50 --retrain
-python scripts/optuna_hpo.py --model all --n_trials 50 --retrain
-```
-
-`all` covers the six main comparison models. The existing command default is 40 trials; the commands above explicitly request a 50-trial budget. HPO evaluates generated geometries through the pretrained surrogate and therefore requires its checkpoint. Each model's `train.py` also provides a direct training entrypoint; most of these scripts use editable settings at the end of the file rather than command-line arguments.
-
-For two GPUs, `python scripts/run_hpo_parallel.py --n_trials 50 --retrain` assigns the six models to devices 0 and 1. Adjust `GPU_GROUPS` for your hardware.
-
-### 3. Generate and evaluate candidates
-
-```bash
-python scripts/inference.py --model fm_cfg --n_cond 100 --n_samples 10
-python scripts/inference.py --model fm_cfg ar cvae cgan ddpm cinn
-```
-
-The script loads each model's HPO settings and checkpoint, generates candidates for held-out conditions, and writes geometry and surrogate-predicted performance arrays plus CSV/JSON summaries. If a generator checkpoint is missing, the original script starts retraining with the saved settings. Surrogate predictions are distinct from subsequent CFD validation.
-
-### 4. Additional analyses
-
-| Analysis | Entry point |
-|---|---|
-| Guidance scale | `experiments/ablation/sweep_guidance_scale.py` |
-| Unconditional training probability | `experiments/ablation/sweep_p_uncond.py` |
-| Sampling steps | `experiments/ablation/sweep_sampling_steps.py` |
-| Generation trajectories | `experiments/trajectory/generate_trajectory.py` |
-| Computational cost | `experiments/computational_cost/run_benchmark.py` |
-| Repeated training seeds | `experiments/robustness/robustness_test.py` |
-| MC dropout | `experiments/uncertainty/mc_dropout_inference.py` |
-
-Analysis scripts retain their experiment-specific settings and require the relevant data, configurations and trained checkpoints. Configure those settings before running long experiments. CFD solver cases and solver automation are outside this machine-learning source package.
-
-## Implementation and provenance
-
-See [docs/implementation.md](docs/implementation.md) for data splits, normalization, reproducibility settings and the scope of the portability edits. Model architectures, losses and sampling equations are retained from the supplied project. [docs/source_manifest.json](docs/source_manifest.json) records source and release hashes for the collected files.
-
-Third-party attribution for the Transformer implementation is recorded in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). No additional license grant is made for the authors' code by this packaging step.
+Browse the [reconstructed PNG/PDF figure gallery](paper_results/previews/README.md).

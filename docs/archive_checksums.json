@@ -1,0 +1,732 @@
+[
+  {
+    "file": "data/additional_TeM.csv",
+    "bytes": 4817716,
+    "sha256": "f6ba683aee972b9b9535f5934e1cd2528965c31655e189801e1639462e3d8f1a"
+  },
+  {
+    "file": "data/dataset_I_CFD.csv",
+    "bytes": 1596366,
+    "sha256": "112c91fd25a5128bc1666f7f9e1b78c32cba2a7eca993afa33ba3a9947cf205b"
+  },
+  {
+    "file": "data/dataset_II_merged.csv",
+    "bytes": 6413852,
+    "sha256": "05b4b6c176f5a55471620288dd8457decef9a926dbee17a7b71718d056ab3ba1"
+  },
+  {
+    "file": "data/label_5200.npy",
+    "bytes": 92288,
+    "sha256": "9ec8d5d863d308f5d3f87bd63de2cf342524fb872130b8527014f50410ff45b4"
+  },
+  {
+    "file": "data/merged_geometry.npy",
+    "bytes": 2325248,
+    "sha256": "cc3ae14203b548f556fe1690ce606692785750f26f2b2f4b3187f0063efd94c1"
+  },
+  {
+    "file": "data/merged_label.npy",
+    "bytes": 332288,
+    "sha256": "5ebb829992b0e67b5b6e6c1976a654a72b3196c7c27d32f1b1df0d4a130bf0d3"
+  },
+  {
+    "file": "data/parameter_geometry_5200.npy",
+    "bytes": 645248,
+    "sha256": "f87e6c083bbc2e7e9420ef52e4e878938b18964e752ab1ac0837885f2833ca4e"
+  },
+  {
+    "file": "data/parameters-10000.npy",
+    "bytes": 1680128,
+    "sha256": "5f86a9887ddd4bec93ed78ffa8c6e814c8818f62bbf4f15b4a16f5f7e025180a"
+  },
+  {
+    "file": "data/performance-10000.npy",
+    "bytes": 240128,
+    "sha256": "57ef2cf7abfa0de96070fda8832361541c582adb23f1cd34d1a3ead0dd5f5fe3"
+  },
+  {
+    "file": "data/README.md",
+    "bytes": 2656,
+    "sha256": "c336d9892b784c1dd9b9e10e7839e67145ffc1515bc4eb9e3dfcd93ef19914c5"
+  },
+  {
+    "file": "data/sample_sources.csv",
+    "bytes": 208160,
+    "sha256": "7ed6c552879890c0248518d8ae195f8d409ba5ab75f963f450f225f202eaa851"
+  },
+  {
+    "file": "paper_results/ablation/cfg_ablation.json",
+    "bytes": 1628,
+    "sha256": "5a59fb79f8a9fb95bff8b83419046d24d03fa33b425c9af0739c778dd324c1b3"
+  },
+  {
+    "file": "paper_results/ablation/sweep_guidance_scale.json",
+    "bytes": 9282,
+    "sha256": "a19d78d7f3303e1fa0478a04c6a2bb05fcff7d4b85b9ecdcae243c6be12a8aeb"
+  },
+  {
+    "file": "paper_results/ablation/sweep_p_uncond.json",
+    "bytes": 2338,
+    "sha256": "5aecad259425a89718c23a35e347986789752d8fc56cf2b36bff27607e91fac5"
+  },
+  {
+    "file": "paper_results/ablation/sweep_sampling_steps.json",
+    "bytes": 3111,
+    "sha256": "f2b73196ae242e55ce1e6cd77c3c3618f8bde25fa33e4c635e7f8aed0e7e6cc2"
+  },
+  {
+    "file": "paper_results/benchmark/distribution_similarity.csv",
+    "bytes": 5537,
+    "sha256": "30ccf431c3e285360354b885aefd5ccd4e4df4642b744be65afc96c19769c84e"
+  },
+  {
+    "file": "paper_results/benchmark/distribution_similarity.json",
+    "bytes": 21137,
+    "sha256": "c275c96b3a205de984c3dd44c0a40de7410c6bb3062198a23bc8c75b3bdb841b"
+  },
+  {
+    "file": "paper_results/benchmark/eval_bubble_metrics.json",
+    "bytes": 805,
+    "sha256": "b6b471eb44259b3a6abcfc5e93aff223e64dabc282ccb38e8905bdad0bc9aba3"
+  },
+  {
+    "file": "paper_results/benchmark/hpo_importance.json",
+    "bytes": 4733,
+    "sha256": "6d53ba0d66699889bd83a948747da31142c9fc1bc3028706481943aae42fb278"
+  },
+  {
+    "file": "paper_results/benchmark/table1_display_values.json",
+    "bytes": 1094,
+    "sha256": "1a92437b48164f10355555ca670d8d071cd6f8e517dba3e425a804d564f71685"
+  },
+  {
+    "file": "paper_results/cost/protocol.json",
+    "bytes": 1420,
+    "sha256": "ace33300a86557342859facbcf24b4c66fa396c5941c82f7f858835cf4ee6eb5"
+  },
+  {
+    "file": "paper_results/cost/raw/ar_inference.json",
+    "bytes": 6374,
+    "sha256": "32e3e5ab0fe38c629c397fa25b12ef1f6e9637cfbb037be9387b371f9cd7ecb9"
+  },
+  {
+    "file": "paper_results/cost/raw/ar_train.json",
+    "bytes": 5283,
+    "sha256": "79a5211f7e0c5cf941fad466202e6bfbda43c30ca2706dcdc3854295753efd9f"
+  },
+  {
+    "file": "paper_results/cost/raw/cgan_inference.json",
+    "bytes": 6846,
+    "sha256": "3e4f7d491ed9a2b63c1543bdbab8ab1b132f9d5ef6032e81bbe021083ba0dcf7"
+  },
+  {
+    "file": "paper_results/cost/raw/cgan_train.json",
+    "bytes": 6221,
+    "sha256": "96603cab9f5ad1cb2a0cce6ffc52d972e013e3f908f91bf9d7a30ac8d102d69e"
+  },
+  {
+    "file": "paper_results/cost/raw/cinn_inference.json",
+    "bytes": 6346,
+    "sha256": "65ff4ba90bc42d36395adaeb1380e3df45f0cd89d6a264c85253ceb7db7f2075"
+  },
+  {
+    "file": "paper_results/cost/raw/cinn_train.json",
+    "bytes": 5209,
+    "sha256": "d480b90cd507c690b7b47b163fa344f004039d631670095d6906d11d015f99fd"
+  },
+  {
+    "file": "paper_results/cost/raw/cvae_inference.json",
+    "bytes": 6767,
+    "sha256": "554f6a5645c33b673a2415767464334eb6759585e02e2594fbd5b40d9fc940cc"
+  },
+  {
+    "file": "paper_results/cost/raw/cvae_train.json",
+    "bytes": 5319,
+    "sha256": "626d1e80439c93b8bbff4ca36fa33044297d30bb85481a5af1945428fa5c20e3"
+  },
+  {
+    "file": "paper_results/cost/raw/ddpm_inference.json",
+    "bytes": 6387,
+    "sha256": "8ad72fdec45de505d6ae7b30d0ed248c1bc03814133e413c782af21c44fd01cf"
+  },
+  {
+    "file": "paper_results/cost/raw/ddpm_train.json",
+    "bytes": 5322,
+    "sha256": "bd8edc0135b30ba0fb1a45a0ed713eb90b98315156c3775f158b08821a615e86"
+  },
+  {
+    "file": "paper_results/cost/raw/fm_cfg_inference.json",
+    "bytes": 6504,
+    "sha256": "54522b583debc506ce01e257e6aa0a6bb61bc1a8e0724aa3651bcda8ccafbf85"
+  },
+  {
+    "file": "paper_results/cost/raw/fm_cfg_train.json",
+    "bytes": 5377,
+    "sha256": "b033c1c4f2f5217dd53037c76da3c5092fc693a17c7ebedf187da16e1913379f"
+  },
+  {
+    "file": "paper_results/cost/summary.json",
+    "bytes": 4343,
+    "sha256": "3228dca867b758e5329d6b32c202181ebce665394b794f86172d0e3d2fecff30"
+  },
+  {
+    "file": "paper_results/cost/tables/computational_cost.csv",
+    "bytes": 1507,
+    "sha256": "c8d47e4fd120b36b51e9dba5afe9c6eef2c21f08a06d486192ef4cc3db1991e3"
+  },
+  {
+    "file": "paper_results/cost/tables/inference_batch10_measurements.csv",
+    "bytes": 2903,
+    "sha256": "393ef0d3d6422bf933288c312d6384063005cb2e71471d7153db9b2cb326f6b8"
+  },
+  {
+    "file": "paper_results/cost/tables/single_figure_plot_data.csv",
+    "bytes": 3652,
+    "sha256": "7d9e4ea132795c4a728233e941990b7b292b8b4ce8dc379428d78f769b25ff18"
+  },
+  {
+    "file": "paper_results/models/ar/ar_geom.npy",
+    "bytes": 84128,
+    "sha256": "6fa906ea7cc597cf78e4285b1fe14cb0ef3e06a74cfdae43974a009cb68b8c9d"
+  },
+  {
+    "file": "paper_results/models/ar/ar_pred.npy",
+    "bytes": 24128,
+    "sha256": "32c8e995483404f82a771ae3a6ba3eac0c20e5768bb6fa6050aaaed4bbc027f9"
+  },
+  {
+    "file": "paper_results/models/ar/ar_targ.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/ar/eval_test_ar.json",
+    "bytes": 565,
+    "sha256": "e871986522fbf210e2552ee35e313d7dd09d99f7482fd2a10a4a06bca63ebb53"
+  },
+  {
+    "file": "paper_results/models/ar/hpo_best_ar.json",
+    "bytes": 759,
+    "sha256": "77dfba3fc52ba90955f64208aebf8b832bbc67f3153f525d81a6a67f401d54fc"
+  },
+  {
+    "file": "paper_results/models/ar/hpo_history_ar.json",
+    "bytes": 179966,
+    "sha256": "7134facf24de6a0a4f970663d3d448edcb1d8aaf4344bfdeaa2b43a48dc5eaf1"
+  },
+  {
+    "file": "paper_results/models/ar/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "d33e4137489bafccc8ff48830f6b89ee33daaaf9dae00c047b53b09ded63d172"
+  },
+  {
+    "file": "paper_results/models/ar/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "b2f632c054f42388eab651f14689b232d702dbe2d2426f808d838a3bcdc56b9d"
+  },
+  {
+    "file": "paper_results/models/ar/inference/inference_metrics.json",
+    "bytes": 641,
+    "sha256": "a09eb1e6fda961bdbd78012d889e2a601ba810c34d1485f11e7b26eb2b654d91"
+  },
+  {
+    "file": "paper_results/models/ar/inference/inference_results.csv",
+    "bytes": 257756,
+    "sha256": "dd33d3d7174e33483227aeba986ae2ec3c1b440ff6f519cf84004662d81857f6"
+  },
+  {
+    "file": "paper_results/models/ar/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "35fb6422ddb0a82a688d8c634b75c3bb78884d8905ce445966d2af00efed4771"
+  },
+  {
+    "file": "paper_results/models/ar/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/cgan/cgan_geom.npy",
+    "bytes": 84128,
+    "sha256": "980804c5cf0b22ae253b7454518a142efa649678b9614b3d9a97a499bb204c00"
+  },
+  {
+    "file": "paper_results/models/cgan/cgan_pred.npy",
+    "bytes": 24128,
+    "sha256": "48310a1fe2fa6142165a12cd7da3f0efed839687bfd6cbf6d2eef701d673df3f"
+  },
+  {
+    "file": "paper_results/models/cgan/cgan_targ.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/cgan/eval_test_cgan.json",
+    "bytes": 558,
+    "sha256": "f92c7aa03988ffed854480add697b8b5f1a1a63593a95cc8529c6e50bd01f2f3"
+  },
+  {
+    "file": "paper_results/models/cgan/hpo_best_cgan.json",
+    "bytes": 876,
+    "sha256": "9e1c5de68ddf8faa785b4042a7a3d1b5643d61d82deeb02adbaa7687ebd81e91"
+  },
+  {
+    "file": "paper_results/models/cgan/hpo_history_cgan.json",
+    "bytes": 202376,
+    "sha256": "8d6ab918fffcb5b065eea6f86deb3b61374d76230a9869820a65ae5deaf53046"
+  },
+  {
+    "file": "paper_results/models/cgan/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "4b23956a0017c220192ba3fc536e41b2cdeaed1d138513790cb4be8131a7794b"
+  },
+  {
+    "file": "paper_results/models/cgan/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "63133c34dbda108532b1fab2cd819a4c6a310d0459b90dfb7cfd81a3cdb0d711"
+  },
+  {
+    "file": "paper_results/models/cgan/inference/inference_metrics.json",
+    "bytes": 633,
+    "sha256": "2e728ba07d891059dc9d9e28328b048bd53c9ce9933045ba9e3447bcb50109eb"
+  },
+  {
+    "file": "paper_results/models/cgan/inference/inference_results.csv",
+    "bytes": 257685,
+    "sha256": "0473deb44ce71b5905ea0660085e1aaa9fa3428768a5b5ff61afc87eea3dcad6"
+  },
+  {
+    "file": "paper_results/models/cgan/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "45cffad6faa3a47a200af64d325dee45a1cdd8961904355ff95488b48ebf4864"
+  },
+  {
+    "file": "paper_results/models/cgan/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/cinn/cinn_geom.npy",
+    "bytes": 84128,
+    "sha256": "f871c5d845ebe97040c81bc0b83940f2c757d6b9d54ae6a87febc5a65e058fb5"
+  },
+  {
+    "file": "paper_results/models/cinn/cinn_pred.npy",
+    "bytes": 24128,
+    "sha256": "3fcafd182167b5114b29886b98bca9a9058481e2a78751f84234b68fe4d62ba1"
+  },
+  {
+    "file": "paper_results/models/cinn/cinn_targ.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/cinn/eval_test_cinn.json",
+    "bytes": 548,
+    "sha256": "0a9fac586d82db7b65514e1423c7c5caaca0d8aaf03bcbb71fe659e17c231aa8"
+  },
+  {
+    "file": "paper_results/models/cinn/hpo_best_cinn.json",
+    "bytes": 711,
+    "sha256": "f5778decff0c66d316564231d08168083a63fb7fb60244eb021517367a9dd19e"
+  },
+  {
+    "file": "paper_results/models/cinn/hpo_history_cinn.json",
+    "bytes": 184587,
+    "sha256": "6c6b09e2a2f70c6150653e601a349ed6a01e9efbbd38147ceab997cedcd65f03"
+  },
+  {
+    "file": "paper_results/models/cinn/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "d2882b68db341bb1a5ac96c2185a346e8f8a1988c30408a7014b711cc25df485"
+  },
+  {
+    "file": "paper_results/models/cinn/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "d24f5d5982fb4a5e3e635fd934ce6a17898f80cbc5a1de199b9d4bd2708f550c"
+  },
+  {
+    "file": "paper_results/models/cinn/inference/inference_metrics.json",
+    "bytes": 646,
+    "sha256": "e941921f306cc0f7e230b6a55b6c53fd720190d93e7253ce880efc655f0e83aa"
+  },
+  {
+    "file": "paper_results/models/cinn/inference/inference_results.csv",
+    "bytes": 257899,
+    "sha256": "e6efd925035d549702bdd83024155180b359ea7e01ab91133c1ea13a3841691d"
+  },
+  {
+    "file": "paper_results/models/cinn/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "0f74f0ba0e85d53b42de5cb90c284b4408c7131f87c2c13191b92bca817d7acf"
+  },
+  {
+    "file": "paper_results/models/cinn/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/cvae/cvae_geom.npy",
+    "bytes": 84128,
+    "sha256": "e2c238658962a8c3a37275a3d03607d99d81545f6e97b66b51daaab2796992b2"
+  },
+  {
+    "file": "paper_results/models/cvae/cvae_pred.npy",
+    "bytes": 24128,
+    "sha256": "58064043dee99b4d0c3a7e1d9c44ae31dadf0874947362a7d20acede9af97595"
+  },
+  {
+    "file": "paper_results/models/cvae/cvae_targ.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/cvae/eval_test_cvae.json",
+    "bytes": 563,
+    "sha256": "7f0a52b15eb6073ad21256d8421dabc2c8b425eb58f0b38dfb8f7a5a6b9e068c"
+  },
+  {
+    "file": "paper_results/models/cvae/hpo_best_cvae.json",
+    "bytes": 805,
+    "sha256": "47f8c987ede143d456317d92be3dacfe4b5d4120ea057add92cf4ea4ee617a65"
+  },
+  {
+    "file": "paper_results/models/cvae/hpo_history_cvae.json",
+    "bytes": 140637,
+    "sha256": "66a9f7504474ad2b47279a232f7c1aaccd9cb089f7e6d5252a42b15df705e560"
+  },
+  {
+    "file": "paper_results/models/cvae/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "e79277e20d2487c838aadc97daeebc249d244f048d9165bb7fd48383011df7d4"
+  },
+  {
+    "file": "paper_results/models/cvae/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "853aeedb076d1a4fa7255e9d89f6416042bf486e4c221991c01dddac5f44b5bc"
+  },
+  {
+    "file": "paper_results/models/cvae/inference/inference_metrics.json",
+    "bytes": 642,
+    "sha256": "e13b57b8e37c68b27ed6f0dac5df9ec47b3e079b73e40ff1f8b48a1b07c46333"
+  },
+  {
+    "file": "paper_results/models/cvae/inference/inference_results.csv",
+    "bytes": 257758,
+    "sha256": "e97f76fdd8dae1be3395e155e4ee010bd84262ae72d5a15fa513ade06df02d59"
+  },
+  {
+    "file": "paper_results/models/cvae/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "0104eaf877a082e224bdfb89a6bc9b5669320eac002622c28bad10d6b8846139"
+  },
+  {
+    "file": "paper_results/models/cvae/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/ddpm/ddpm_geom.npy",
+    "bytes": 84128,
+    "sha256": "f9966828a8ab6bd92543ed7acfe192cf9fa609a41e1f690b55e57994c045d53c"
+  },
+  {
+    "file": "paper_results/models/ddpm/ddpm_pred.npy",
+    "bytes": 24128,
+    "sha256": "4b14324299c660fc50e3cd7f080397f6c249999a9f644dac0456e397ee5ce8a7"
+  },
+  {
+    "file": "paper_results/models/ddpm/ddpm_targ.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/ddpm/eval_test_ddpm.json",
+    "bytes": 551,
+    "sha256": "02ccbc42b40a003c05c1ee186d50cc033b08c461c04a4d61a0c34915c54dbe9b"
+  },
+  {
+    "file": "paper_results/models/ddpm/hpo_best_ddpm.json",
+    "bytes": 771,
+    "sha256": "6f148d610065ee3e7a6dab65848f355998c4972fbe41f81f77f1bc7d8698b132"
+  },
+  {
+    "file": "paper_results/models/ddpm/hpo_history_ddpm.json",
+    "bytes": 75284,
+    "sha256": "c6c3e336ad722e230dca0b3edfa0befd79a5e1af06c82070c82c270838dc843d"
+  },
+  {
+    "file": "paper_results/models/ddpm/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "52a994f737a73cadab06420b7555307a9f4036eab723f46fcee87bee8ec182e8"
+  },
+  {
+    "file": "paper_results/models/ddpm/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "534f0cee782a6dca57ea5cc64175b6067230daad64c76c47b2632fc70ea89288"
+  },
+  {
+    "file": "paper_results/models/ddpm/inference/inference_metrics.json",
+    "bytes": 633,
+    "sha256": "0ec6d2530450bb1281896860a44b66917338145df7f2b82a53ddc85984e1ea9a"
+  },
+  {
+    "file": "paper_results/models/ddpm/inference/inference_results.csv",
+    "bytes": 257654,
+    "sha256": "8612ef8fcf105ede4a2a4cf9f3e4c7c65f50e0e6a474f6315a75a4edb8c9fd84"
+  },
+  {
+    "file": "paper_results/models/ddpm/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "072d8a29085f6d14019e9836d8e5254964fa48c3a93c19342aa7feb971c50354"
+  },
+  {
+    "file": "paper_results/models/ddpm/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/fm/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "d0d65f084f6512bc58a47a46e20ac23939a254abfcfe2fa6efef8a0a9f08329b"
+  },
+  {
+    "file": "paper_results/models/fm/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "ee71437f7760489edc9f5e7b69237e91db0ad07cfa8850f9305dfc790e19c082"
+  },
+  {
+    "file": "paper_results/models/fm/inference/inference_metrics.json",
+    "bytes": 757,
+    "sha256": "4f1f29843ff6270a7a268b3092f85e93c38b09111b876de95594505ffac7ce01"
+  },
+  {
+    "file": "paper_results/models/fm/inference/inference_results.csv",
+    "bytes": 257778,
+    "sha256": "dd6d3102a38111e0a60470cbfe49433bffdef1b1b1032000ef8b2abe5b7c70cc"
+  },
+  {
+    "file": "paper_results/models/fm/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "ebff10a42f244e50b25451af4321c138b7d8cd27124c36b53b59a11e2fc3e6f3"
+  },
+  {
+    "file": "paper_results/models/fm/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/fm/training_history.json",
+    "bytes": 5266,
+    "sha256": "057c551f83005933f07561321a9d4e60089990391edee141638f408a18f3a68e"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/eval_test_fm_cfg.json",
+    "bytes": 556,
+    "sha256": "4dd196216f37590e63f24c614913a077d158966036e6ab5209240da83ad368bf"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/fm_cfg_geom.npy",
+    "bytes": 84128,
+    "sha256": "d21de6985e0d1bae9c43658b0e912bfc45409e42264a985c90510e2da5d369c7"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/fm_cfg_pred.npy",
+    "bytes": 24128,
+    "sha256": "ba7c84b77601651b13b2841821b62308124ed1b4ecfa5bd90e822f73152858bf"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/fm_cfg_targ.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/hpo_best_fm_cfg.json",
+    "bytes": 869,
+    "sha256": "9717ee8d557029c6ccc5aca41272de2c63137409c7b2449398f90e30434da195"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/hpo_history_fm_cfg.json",
+    "bytes": 181173,
+    "sha256": "62a93af95fbfd7967139da6147434d0516ef2dd2b972fcf1e67b5218231cbfb5"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/inference/geometry_denorm.npy",
+    "bytes": 168128,
+    "sha256": "e4d1e944b19570c4f194c974c15d49093b418c318e13707db8a5bf03a02cd267"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/inference/geometry_norm.npy",
+    "bytes": 84128,
+    "sha256": "c44a1ef16fce2c06ff562f132131c50c31200d1f55cb2974499799e9a2598831"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/inference/inference_metrics.json",
+    "bytes": 656,
+    "sha256": "9f8475e9ba0073752eeb0106784ecf7ce9e028cb68bbefc94413b6cdc593c6a7"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/inference/inference_results.csv",
+    "bytes": 257778,
+    "sha256": "ef56cb26902b83a15f82dfc2f479bf1a53ea73c63477da60d9f88d76f87e7431"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/inference/pred_performance.npy",
+    "bytes": 24128,
+    "sha256": "8d713691b7fae095b56fede0a4cba7a04fcc251fbb2c969c4c7236aca2102380"
+  },
+  {
+    "file": "paper_results/models/fm_cfg/inference/target_performance.npy",
+    "bytes": 24128,
+    "sha256": "ea7b759b25d74afdafb295635fd4cd18934ecc47043311bc0c5ae94194d8ede6"
+  },
+  {
+    "file": "paper_results/previews/Figure_02.pdf",
+    "bytes": 240000,
+    "sha256": "f329c4a8b913563473a7bf3b8290c5425b317b9d4e8a6473d401a19849cee497"
+  },
+  {
+    "file": "paper_results/previews/Figure_02.png",
+    "bytes": 675706,
+    "sha256": "c3c8f5818ceca2d1937ee73a8a7b4c3529aff4a236524033f5c4df61db23f6f2"
+  },
+  {
+    "file": "paper_results/previews/Figure_03.pdf",
+    "bytes": 22007,
+    "sha256": "270be89c155525d2f8d6f74f2b312cc36fc7f5abc932db38a6d4ea098a19e564"
+  },
+  {
+    "file": "paper_results/previews/Figure_03.png",
+    "bytes": 142835,
+    "sha256": "a47f49b703622d8b2ad1a97e2519ddfb25a688492ba32ef6eb6bd085b7e7901b"
+  },
+  {
+    "file": "paper_results/previews/Figure_06.pdf",
+    "bytes": 236800,
+    "sha256": "b187e7eaf01dd44d151a76bd4e396e315b5629b7cf626fe82b3b046a04a5f40e"
+  },
+  {
+    "file": "paper_results/previews/Figure_06.png",
+    "bytes": 651119,
+    "sha256": "fced7540fd7d7fff91e5e40c19e6a76d3eb590e13a14869782c9f90169a5afe0"
+  },
+  {
+    "file": "paper_results/previews/Figure_09_def.pdf",
+    "bytes": 20709,
+    "sha256": "b0c92caa3252dca83687285d9ee456f8c7a59dfea327f3d4fed39e4b4b9a95f0"
+  },
+  {
+    "file": "paper_results/previews/Figure_09_def.png",
+    "bytes": 68000,
+    "sha256": "3b9d32f20390f36b50850a47b5fc1b3764029cb29749fa83988670a7cb241935"
+  },
+  {
+    "file": "paper_results/previews/Figure_10.pdf",
+    "bytes": 47171,
+    "sha256": "88a0c533f6f53b6283547ee2f75b922a42bdaa5089b3bbf66e9d555980ee8789"
+  },
+  {
+    "file": "paper_results/previews/Figure_10.png",
+    "bytes": 525931,
+    "sha256": "bcef9c66746cdbbc4128fd936225c98d5360a671f7fd47b9c695362a1994498d"
+  },
+  {
+    "file": "paper_results/previews/Figure_11_fgh.pdf",
+    "bytes": 647812,
+    "sha256": "62e77b7288d1ea65707d9913782d04928e409a0d97ba481219248d571b8e5d66"
+  },
+  {
+    "file": "paper_results/previews/Figure_11_fgh.png",
+    "bytes": 1104808,
+    "sha256": "e7e211f34c459136a4b9fd59958921a521d1bb0ea5a58223a8fddc1a48a31ac5"
+  },
+  {
+    "file": "paper_results/previews/README.md",
+    "bytes": 1141,
+    "sha256": "83ab0825f466f78a600b1ea10813e8d51c502e82cd8a7a6511da8f1362744fef"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_01.pdf",
+    "bytes": 215023,
+    "sha256": "694ef00ffd454c097c0a9b3704e8a5168579c7459d77598a68b3ba0507be5d22"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_01.png",
+    "bytes": 1509665,
+    "sha256": "c01ceeba0a15fe521a2f7025417d12c33f9d64debda23f9df88ebd1fed944492"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_02.pdf",
+    "bytes": 138073,
+    "sha256": "ce6e18efe2cc947c8fceb8067e8e67c4afa73f2f701eae56f9d915087f0a6f98"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_02.png",
+    "bytes": 1981835,
+    "sha256": "a999058776afea01400396cf744737221cd075642dfa6aa7a99654a30c3eb93e"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_06.pdf",
+    "bytes": 15549,
+    "sha256": "df26063a6f21d6a219a2bc7e315b2e687f9ed71ec5e48a9527e27cdcfa2cba75"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_06.png",
+    "bytes": 89544,
+    "sha256": "8a8c4ff0a8d9cb8e3aeb22ca6ca3fc8007b053760e4308ef376136c5b8bbc203"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_07.pdf",
+    "bytes": 22043,
+    "sha256": "be8bf80c1019bff29dbf1561c2178a65e111138a8910c485f7e0677577dcf34b"
+  },
+  {
+    "file": "paper_results/previews/Supplementary_Figure_07.png",
+    "bytes": 143456,
+    "sha256": "55b466eecfdce106393619e3ed3e4eef5dfcc2a145d5a13468be72a669f4bed9"
+  },
+  {
+    "file": "paper_results/source_manifest.json",
+    "bytes": 20487,
+    "sha256": "137853dd1f07d8cb3ed78153ada4218c4ba16d055e1df96196086359b17af783"
+  },
+  {
+    "file": "paper_results/surrogate/mc_preds_test.npy",
+    "bytes": 460928,
+    "sha256": "c579d70d65905534ad0ec8377b457a8712c397da8ba2fe7ad1b29069f562f770"
+  },
+  {
+    "file": "paper_results/surrogate/mc_preds_train.npy",
+    "bytes": 3686528,
+    "sha256": "ab6315eda6dea80ae511b78b0419380d6c8c294a3af567bb0bcb57ac44773bd0"
+  },
+  {
+    "file": "paper_results/surrogate/mc_preds_val.npy",
+    "bytes": 460928,
+    "sha256": "dbb3139e271073ead9af871ff8d40f558ec7878bea4c578edaac15293f13e833"
+  },
+  {
+    "file": "paper_results/surrogate/robustness_results.csv",
+    "bytes": 30631,
+    "sha256": "645429d78972116c89b5e7f7fefe06fd20e47ac0e2d8a37b14cd5cf29c49afa0"
+  },
+  {
+    "file": "paper_results/surrogate/test_labels.npy",
+    "bytes": 9344,
+    "sha256": "0afe9937f10c10cd15b59a5675ba16c93af4703926b8481c044f938e38c05bd6"
+  },
+  {
+    "file": "paper_results/surrogate/train_labels.npy",
+    "bytes": 73856,
+    "sha256": "d783d75c2838ded2ab672f5a791e3300d4e425e6fd9ae6c55f33813855436fa2"
+  },
+  {
+    "file": "paper_results/surrogate/val_labels.npy",
+    "bytes": 9344,
+    "sha256": "854d4cb720701468be3e32528b2a6f56457f7b5724ff779946326c2076de91ae"
+  },
+  {
+    "file": "paper_results/trajectory/trajectory_data.npz",
+    "bytes": 622010,
+    "sha256": "7a9e8765bca2236532b943a6263d88dd61374fec46d2c2d10ac40622b78e948e"
+  }
+]
